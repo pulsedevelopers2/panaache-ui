@@ -1,0 +1,45 @@
+@font-face { font-family: lobster; src: url('../fonts/LobsterTwo-Bold.otf'); }
+@font-face { font-family: fff; src: url('../fonts/FFF_Tusj.ttf'); }
+:root {
+    --body-color: #000;
+    --inverted-body: #fff;
+    --text: #fff;
+    --inverted-text: #000;
+}
+#app {
+    background-color: black;
+background-image: linear-gradient(45deg, transparent 80%,
+  rgba(51, 50, 50, 0.5) 50%);
+background-size: 1vh 1vh;
+    color: var(--text);
+    height: 100vh;
+    overflow-x: hidden;
+    margin-top: 0px;
+    font-family: trajan;
+}
+body{
+    background-color: #000;
+    width: 100vw;
+    overflow: hidden;
+}
+.red{
+    color: red;
+  }
+.golden {
+    background-image: linear-gradient(
+	to right,
+	#8b6224 0,
+    rgb(112, 72, 13) 22%, 
+	#b8873e 45%,
+	#d6af5b 50%,
+	#ca9f41 55%,
+	#b8873e 78%,
+	rgb(112, 72, 13) 100%
+	);
+   color: transparent;
+   background-clip: text;
+   -webkit-background-clip: text;
+}
+.d-xs-none, .d-sm-none, .d-md-none, d-lg-none {
+    display: none !important;
+}

@@ -1,5 +1,6 @@
 import { getField, updateField } from 'vuex-map-fields';
 import axios from 'axios'
+axios.defaults.timeout = 10000;
 // initial state
 const initialState = {
     loggedIn : "false",
@@ -7,16 +8,15 @@ const initialState = {
     askOtp: 'false',
     existingUser: 'false',
     resentOtp: 'false',
-    failedOtp: 'false'
+    failedOtp: 'false',
+    email: null
 };
 // getters
 const getters = {
   getField
 };
-
 const actions = {
     async login({ commit }, { body }) {
-        commit('loggedIn', 'false');
         commit('askOtp','false');
         commit('existingUser','false')
         commit('token',null)
@@ -33,7 +33,10 @@ const actions = {
                     throw Error;
                 } else if (response.status <= 299 && response.headers.token  && response.headers.token !== 'unverified') {
                     commit('loggedIn','true');
-                    commit('token',response.headers.token);
+                    let descrypted = JSON.parse(atob(response.headers.token));
+                    commit('token',descrypted.token);
+                    $cookies.set('cacheToken',descrypted.cacheToken,'10d');
+                    commit('email',descrypted.email)
                 } else {
                     commit('askOtp','true')
                 }
@@ -42,17 +45,47 @@ const actions = {
             commit('loggedIn','failed');
         }
     },
+    async cachedVerify({ commit }) {
+        commit('loggedIn','loading');
+        let cacheToken = $cookies.get('cacheToken');
+        if (cacheToken && cacheToken != 'null' && cacheToken != null) {
+            try {
+                let encryptedToken = btoa(JSON.stringify({
+                    token: null,
+                    cacheToken: cacheToken
+                }));
+                await axios.post("http://localhost:8080/cachelogin", null,  {
+                headers : {
+                    'Access-Control-Allow-Origin':'*',
+                    'cache': encryptedToken
+                }
+            }).then((response) => {
+                if (response.status <= 299) {
+                    let decrypted = response.headers.token && atob(response.headers.token) || null;
+                    let jsonDecrypt = JSON.parse(decrypted); 
+                    commit('email',jsonDecrypt.email);
+                    commit('loggedIn','true');
+                    commit('token',null);
+                }
+            })
+        } catch(e) {
+            commit('loggedIn','false');
+        }
+    } else {
+        commit('loggedIn','false');
+    }
+},
     async reset({ commit }) {
         commit('loggedIn', 'false');
         commit('askOtp','false');
         commit('existingUser','false');
         commit('token',null);
+        commit('email',null);
         commit('failedOtp','false');
         commit('resendOtp','false');
-
+        $cookies.set('cacheToken',null);
     },
     async sign({ commit}, { body }) {
-        commit('loggedIn', 'false');
         commit('askOtp','false');
         commit('existingUser','false');
         commit('token',null);
@@ -89,19 +122,25 @@ const actions = {
             }).then((response) => {
                 if (response.headers.error) {
                     commit('failedOtp','true')
+                    throw Error
                 } else if (response.status <= 299 && response.headers.token) {
                     commit('loggedIn','true');
-                    commit('token',response.headers.token);
+                    let decrypted = response.headers.token && atob(response.headers.token) || null;
+                    let jsonDecrypt = JSON.parse(decrypted); 
+                    commit('token',jsonDecrypt.token);
+                    $cookies.set('cacheToken',jsonDecrypt.cacheToken,'30d');
+                    commit('email',jsonDecrypt.email)
                 }
             });
         }
         catch (error) {
-            commit('loggedIn','failed');
+            commit('loggedIn','false');
+            commit('failedOtp','failed')
         }
     },
     async resend({commit},{body}) {
         commit('loggedIn','false')
-        commit('resendOtp','false');
+        commit('resendOtp','sending');
         try {
             let stringBody = JSON.stringify(body);
             let encryptedBody = btoa(stringBody);
@@ -141,6 +180,9 @@ const mutations = {
       },
       failedOtp(state, failedOtp) {
           state.failedOtp = failedOtp
+      },
+      email(state, email) {
+          state.email = email
       }
   };
 

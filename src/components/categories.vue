@@ -1,8 +1,8 @@
 <template>
   <div class="category row container">
-    <div class="col-md-3 hidden-xs hidden-sm cat-text">
+    <a class="col-md-3 hidden-xs hidden-sm cat-text" href="/items?items='rings'">
       <span class="redded">R</span>INGS
-    </div>
+    </a>
     <div class="col-md-2 hidden-xs hidden-sm cat-text">
       <span class="redded">E</span>ARINGS
     </div>

@@ -1,34 +1,35 @@
 <template>
-  <div class="login-wrapper row">
-    <div class="login-box row col-md-6 col-lg-4 col-xs-10">
-      <span v-if="askOtp!='true'" class="wrapper">
-        <img src="../assets/logo.png" class="Login-image">
-        <h2> <b>{{ block.toUpperCase() }} </b></h2>
-        <span v-if="block=='login'" class="Login">
-          <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
-          <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
-          <input type="submit" class="submit col-xs-12" text="LOGIN" @click="log()">
-          <p> New to Panaache? <span class="blue" @click="initialize('signup')">Create an Account</span></p>
+  <div class="login-wrapper">
+    <span class="login-box row">
+      <span class="login col-xs-12 col-md-6">
+        <span v-if="askOtp!='true'" class="wrapper">
+          <h2> <b>{{ block.toUpperCase() }} </b></h2>
+          <span v-if="block=='login'" class="Login">
+            <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
+            <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
+            <input type="submit" class="submit col-xs-12" text="LOGIN" @click="log()">
+            <p class="white"> New to Panaache? <span class="blue" @click="initialize('signup')">Create an Account</span></p>
+          </span>
         </span>
+        <span v-if="block=='signup'" class="Login">
+          <signup />
+          <p class="white">Have an Account ?<span class="blue" @click="initialize('login')"> Login</span></p>
+        </span>
+        <span v-if="askOtp=='true' && block=='login'" class="askOtp row">
+          <h3>Account not yet Verified<br>please Verify</h3>
+          <input v-model="emailOtp" type="number" class="input col-xs-12" placeholder="Email OTP">
+          <p v-if="failedOtp=='true'" class="red">Wrong otp entered please retry</p>
+          <button class="otpSub col-xs-3" @click="verify()">Verify</button>
+          <span class="resend col-xs-4" @click="resendMe()">Resend otp</span>
+        </span>
+        <div v-if="loggedIn === 'failed' || resendOtp === 'failed'" class="red-failed">
+          Error logging you In ! Plese check your Internet Connection and Login Details or contact panaache@gmail.com
+        </div>
       </span>
-      <span v-if="block=='signup'" class="Login">
-        <signup />
-        Have an Account ?<span class="blue" @click="initialize('login')"> Login</span>
+      <span class="login right verticle-aligned col-xs-12 col-md-6">
+        <h3>Assorted Collection of Exquisite diamond awaiting for you!! Login Now and Experience the Beauty of Jewelz</h3>
       </span>
-      <span v-if="askOtp=='true' && block=='login'" class="askOtp row">
-        <h3>Account not yet Verified<br>please Verify</h3>
-        <input v-model="emailOtp" type="number" class="input col-xs-12" placeholder="Email OTP">
-        <p v-if="failedOtp=='true'" class="red">Wrong otp entered please retry</p>
-        <button class="otpSub col-xs-3" @click="verify()">Verify</button>
-        <span class="resend col-xs-4" @click="resendMe()">Resend otp</span>
-      </span>
-      <div v-if="loggedIn === 'failed'" class="red-failed">
-        Error logging you In ! Plese check your Login Details or contact panaache@gmail.com
-      </div>
-      <div v-if="resendOtp === 'failed'" class="red-failed">
-        Error logging you In ! Plese check your Login Details or contact panaache@gmail.com
-      </div>
-    </div>
+    </span>
   </div>
 </template>
 <script>
@@ -78,8 +79,6 @@ export default {
             reset: 'login/reset'
         }),
         async log() {
-            console.log(this.email);
-            console.log(this.password);
             if(this.email && this.password){
                 await this.login({ body: { email: this.email, password: this.password} })
             }
@@ -107,6 +106,9 @@ export default {
   padding: 1%;
   margin: 1%;
 }
+td {
+  width: 50%;
+}
 .otpSub {
   border: 0px;
   padding: 2%;
@@ -118,7 +120,7 @@ export default {
   margin: 1%;
 }
 .blue{
-    color: blue;
+    color: rgb(151, 129, 5);
     cursor: pointer;
 }
 .red-failed {
@@ -126,22 +128,26 @@ export default {
     border: 1px solid rgb(238, 54, 54);
 }
 .login-box {
-    background-image: url('../assets/white-texture.jpg');
+    background: rgba(124, 124, 124, 0.2);
     background-repeat: no-repeat;
     background-size:cover;
+    display: inline-block;
+    padding: 5%;
     vertical-align: middle;
     align-items: center;
-    padding: 7%;
-    border-radius: 10px;
+    vertical-align: middle;
+    width: 100vw;
     box-shadow: 1px 1px 5px 1px inherit;
 }
 .login-box h2, .login-box h3{
     color: #846427
 }
+.login-box td {
+  padding: 5%;
+}
 .input{
     height: 4vh;
-    color: var(--inverted-text);
-    font-size: 120%;
+    color: var(--text);
     margin: 10px 0px;
     border: 0px;
     border-bottom: 1px solid black;
@@ -164,5 +170,13 @@ export default {
 .Login-image {
     max-width: 15%;
     max-height: 15%;
+}
+.left {
+  border-right: 1px solid white;
+}
+@media screen and (orientation: portrait) {
+  .right h3{
+    font-size: 90%;
+  }
 }
 </style>

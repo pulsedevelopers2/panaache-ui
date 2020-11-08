@@ -1,13 +1,15 @@
 <template>
   <span class="signup">
-    <input v-model="name" type="text" class="name input col-xs-12" placeholder="Name">
-    <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
-    <input v-model="phone" type="number" class="name input col-xs-12" placeholder="Phone">
-    <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
-    <p v-if="mandateReq" class="red">** All fields are Mandatory **</p>
-    <p v-if="askOtp=='failed'" class="red"> ** failed sending otp Please retry ** </p>
-    <p v-if="existingUser == 'true'" class="red"> ** User Exist please use different email or phone **</p>
-    <input v-if="!(askOtp=='true')" type="submit" class="submit col-xs-12" text="LOGIN" @click="signup()">
+    <span v-if="!(askOtp=='true')" class="signing">
+      <input v-model="name" type="text" class="name input col-xs-12" placeholder="Name">
+      <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
+      <input v-model="phone" type="number" class="name input col-xs-12" placeholder="Phone">
+      <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
+      <p v-if="mandateReq" class="red">** All fields are Mandatory **</p>
+      <p v-if="askOtp=='failed'" class="red"> ** failed sending otp Please retry ** </p>
+      <p v-if="existingUser == 'true'" class="red"> ** User Exist please use different email or phone **</p>
+      <input type="submit" class="submit col-xs-12" text="LOGIN" @click="signup()">
+    </span>
     <span v-if="askOtp=='true' " class="askOtp row">
       <input v-model="emailOtp" type="number" class="input col-xs-12" placeholder="Email OTP">
       <p v-if="failedOtp=='true'" class="red col-xs-12">Wrong otp entered please retry</p>
@@ -76,18 +78,17 @@ export default {
 <style scoped>
 .input{
     height: 4vh;
-    color: var(--inverted-text);
-    font-size: 120%;
-    margin: 10px 0px;
+    color: var(--text);
+    margin-top: 10px;
     border: 0px;
     border-bottom: 1px solid black;
     background: transparent;
 }
 .resend{
   height: 100%;
-  color: rgb(9, 9, 172);
+  color: rgb(141, 120, 2);
   cursor: pointer;
-  padding: 1%;
+  padding: 1%;  
   margin: 1%;
 }
 .askOtp {
@@ -99,7 +100,6 @@ export default {
   padding: 2%;
   margin: 1%;
   background-color: #4bb543;
-  
 }
 .otpInput {
   margin: 1%;

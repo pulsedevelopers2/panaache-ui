@@ -64,7 +64,7 @@
         </div>
         <span class="order-basis" />
         <h2 class="pricing">
-          ₹ {{ (pricing && goldPricingJson) && Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges + ((pricing && goldPricingJson) && pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-
+          ₹ {{ (pricing && goldPricingJson) && Math.round((Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100) + pricing.diamond_cost + goldPricingJson[curr_size].mkCharges + Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05)) }}/-
         </h2>
         <h5 class="pricing">Unbeatable price Guranteed! Compare the price anywere </h5>
         <div class="purchase col-xs-12 row">
@@ -123,7 +123,7 @@
         <td class="col-xs-3"><h6>Gold Metal</h6></td>
         <td class="col-xs-3"><h6>{{ curr_metal && (curr_metal + " (" + purity[curr_metal.toUpperCase()]*100 + "%purity )") || (purity['default'] + "%purity") }}</h6></td>
         <td class="col-xs-3"><h6>{{ goldPricingJson && goldPricingJson[curr_size].weight || 'Error' }} gms</h6></td>
-        <td class="col-xs-3"><h6>{{ goldPricingJson && Math.round((goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100 || 'Error' }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ goldPricingJson && Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100 || 'Error' }}/-</h6></td>
       </tr>
       <tr class="table_data row">
         <td class="col-xs-3" />
@@ -153,13 +153,13 @@
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3"><h6>GST & Transaction Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05) }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05) }}/-</h6></td>
       </tr>
       <tr class="table_data row total">
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3">Total</td>
-        <td class="col-xs-3">{{ Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges + (pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-</td>
+        <td class="col-xs-3">{{ Math.round((Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100) + pricing.diamond_cost + goldPricingJson[curr_size].mkCharges + Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05)) }}/-</td>
       </tr>
     </table>
   </span>

@@ -62,6 +62,7 @@ const actions = {
             });
     }
     catch(error) {
+      console.log(error)
       commit('added',false)
     }
     },

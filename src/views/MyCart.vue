@@ -69,16 +69,19 @@
         CHECKOUT
       </button>
     </div>
+    <checkout v-if="pay" />
   </div>
 </template>
 <script>
 import {mapAction, mapActions, mapState} from 'vuex';
+import Checkout from './Checkout.vue'
 import NavBar from '../NavBar.vue'
 import SideNav from '../components/SideNav'
 export default {
     components: {
         NavBar,
-        SideNav
+        SideNav,
+        Checkout
     },
     data() {
       return {
@@ -88,7 +91,8 @@ export default {
         city: null,
         district: null,
         state: null,
-        phone: null
+        phone: null,
+        pay: false
       }
     },
     computed: {
@@ -96,7 +100,8 @@ export default {
             loggedIn: state => state.login.loggedIn,
             cart: state => state.cart.cart,
             cartLoad: state => state.cart.cartLoad,
-            token: state => state.login.token
+            token: state => state.login.token,
+            payment_details: state => state.cart.payment_details
         })
     },
     watch: {
@@ -113,6 +118,7 @@ export default {
         }
     },
     async created() {
+      this.pay = false;
         await this.cachedVerify();
         if (this.loggedIn == 'true') {
             let tt = this.token
@@ -144,14 +150,28 @@ export default {
       async paynow() {
         let token = this.token;
         let cart = this.cart
+        let address = {
+          name: this.name,
+          address: this.address,
+          pin: this.pin,
+          city: this.city,
+          district: this.district,
+          state: this.state,
+          phone: this.phone
+        }
         if (this.phone) {
           alert('Add Complete Delivery Address')
         } else {
-        await this.checkout({ token, cart });
+          await this.checkout({ token, cart, address });
+          console.log('here')
+          console.log(this.payment_details)
+          if (this.payment_details && this.payment_details != 'failed') {
+            this.pay = true
+          } 
         }
       }
     }
-}
+} 
 </script>
 <style scoped>
 .mycart-wrapper, .mycart-wrapper h3 {

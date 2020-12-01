@@ -1,11 +1,12 @@
 import { getField, updateField } from 'vuex-map-fields';
-import axios from 'axios'
+import axios from 'axios';
 // initial state
 const initialState = {
     cart: null,
     cartLoad: false,
     deleted: null,
-    checkout: null
+    checkout: null,
+    payment_details: null
 };
 // getters
 const getters = {
@@ -63,26 +64,35 @@ const actions = {
         commit('deleted','failed')
     }
     },
-    async checkout({ commit }, {token, cart}) {
+    async checkout({ commit }, {token, cart, address}) {
         commit('checkout',null);
         try {
         let tokenBody = btoa(JSON.stringify({
             token: token,
             cacheToken: $cookies.get('cacheToken')
         }));
-        let stringBody = JSON.stringify(cart);
+        let stringBody = JSON.stringify({
+            cart: cart,
+            address: address
+        });
         let encryptedBody = btoa(stringBody);
-        axios.post("http://localhost:8080/placeorder", {
-            cart: encryptedBody
-        }, {
+        await axios.post("http://localhost:8080/placeorder", { checkout : encryptedBody }, {
             headers: {
                 'Access-Control-Allow-Origin':'*',
                 'token': tokenBody
             }
         }).then(function(response) {
-            console.log(response)
+            if (response.status <= 299 && response.data != 'error') {
+                console.log('heredcs')
+                commit('payment_details', response.data)
+            } else {
+                console.log('here')
+                console.log(response)
+            }
         })
     } catch(error){
+        console.log(error);
+        console.log('2')
         commit('checkout','failed');
     }
     }
@@ -100,6 +110,9 @@ const mutations = {
       },
       checkout(state, checkout) {
           state.checkout = checkout
+      },
+      payment_details(state, payment_details) {
+          state.payment_details = payment_details
       }
   };
 

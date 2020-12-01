@@ -101,6 +101,11 @@
         </div>
         <p v-if="loggedIn == 'true'" class="user-email">{{ email }}</p>
         <div class="dropdown-wrapper">
+          <div v-if="loggedIn != 'true'" class="dropdown">
+            <a class="option-dropdown" href="/">
+              Home
+            </a>
+          </div>
           <div class="dropdown show">
             <a id="dropdownMenuLink"
                class="option-dropdown"
@@ -130,8 +135,8 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Loose Diamonds</a><br>
-              <a class="dropdown-item" href="#">Rings</a><br>
+              <a class="dropdown-item" href="/solitaireLD">Loose Diamonds</a><br>
+              <a class="dropdown-item" href="/items?&item=rings,solitaire">Rings</a><br>
               <a class="dropdown-item" href="#">Earings</a>
             </div>
           </div>
@@ -313,8 +318,8 @@ export default {
   left: 0;
   height: 100vh;
   width: 20%;
-  backdrop-filter: blur(5px);
-  background: rgb(0, 0, 0, 0.9);
+  backdrop-filter: blur(7px);
+  background: rgb(0, 0, 0, 0.2);
   color: rgb(255, 255, 255);
   min-width: 160px;
   overflow-y: scroll;

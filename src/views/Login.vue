@@ -16,7 +16,7 @@ export default {
     watch: {
         loggedIn: function(curr, prev) {
             if (curr == 'true') {
-                if(document.referrer) {
+                if(document.referrer && !document.referrer.endsWith('/reset')) {
                     window.history.go(-1)
                 } else {
                     window.location.href = '/'

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @contextmenu="preventDefault($event)">
     <nav-bar />
     <div v-if="loggedIn == 'true'" class="banner">
       <img src="../assets/ring.png">
@@ -65,6 +65,10 @@ export default {
           token: this.token
         }
         await this.getItems({body})
+      },
+      preventDefault(e) {
+        e.preventDefault();
+        alert('Right click Not allowed')
       }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="main_item">
+  <div class="main_item" @contextmenu="preventDefault($event)">
     <nav-bar />
     <SideNav />
     <item v-if="item_loaded == 'true' && loggedIn == 'true'" />
@@ -60,6 +60,10 @@ export default {
             token: this.token
         }
         await this.getItem({body})
+      },
+      preventDefault(e) {
+        e.preventDefault();
+        alert('Right click Not allowed')
       }
     }
 }

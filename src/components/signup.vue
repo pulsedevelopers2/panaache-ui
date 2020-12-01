@@ -12,6 +12,7 @@
     </span>
     <span v-if="askOtp=='true' " class="askOtp row">
       <input v-model="emailOtp" type="number" class="input col-xs-12" placeholder="Email OTP">
+      <input v-model="mobileOtp" type="number" class="input col-xs-12" placeholder="Mobile OTP">
       <p v-if="failedOtp=='true'" class="red col-xs-12">Wrong otp entered please retry</p>
       <button class="otpSub col-xs-3" @click="verify()">Verify</button>
       <span class="resend col-xs-4" @click="resendMe()">Resend otp</span>
@@ -31,7 +32,8 @@ export default {
         phone: null,
         password: null,
         mandateReq: false,
-        emailOtp: null
+        emailOtp: null,
+        mobileOtp: null
       }
     },
     computed: {
@@ -57,7 +59,7 @@ export default {
         }
       },
       async verify() {
-        let body = {email: this.email, password: this.password, emailOtp: this.emailOtp}
+        let body = {email: this.email, password: this.password, emailOtp: this.emailOtp, mobileOtp: this.mobileOtp}
         await this.otpVerify({ body });
       },
       async resendMe(){

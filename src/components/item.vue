@@ -64,7 +64,7 @@
         </div>
         <span class="order-basis" />
         <h2 class="pricing">
-          ₹ {{ (pricing && goldPricingJson) && Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges + ((pricing && goldPricingJson) && pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-
+          ₹ {{ (pricing && goldPricingJson) && Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges + ((pricing && goldPricingJson) && pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-
         </h2>
         <h5 class="pricing">Unbeatable price Guranteed! Compare the price anywere </h5>
         <div class="purchase col-xs-12 row">
@@ -147,19 +147,19 @@
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3"><h6>Making Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ pricing.making_charges }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ goldPricingJson[curr_size].mkCharges }}/-</h6></td>
       </tr>
       <tr class="table_data row">
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3"><h6>GST & Transaction Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05) }}/-</h6></td>
       </tr>
       <tr class="table_data row total">
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3">Total</td>
-        <td class="col-xs-3">{{ Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges + (pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-</td>
+        <td class="col-xs-3">{{ Math.round(pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges + (pricing.diamond_cost + (goldPricingJson[curr_size].price/0.77)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + pricing.making_charges)*0.05) }}/-</td>
       </tr>
     </table>
   </span>
@@ -214,6 +214,7 @@ export default {
           await this.getPricing({body, tok})
         this.goldPricingJson = this.pricing && this.pricing.gold_details.reduce((prev, curr) => {
           prev[curr.size] = curr;
+          console.log(curr)
           return prev;
         },{})
     },
@@ -359,7 +360,7 @@ select {
     margin: 0;
 }
 .main-image {
-    height: 50vh;
+    height: 55vh;
     background: linear-gradient( rgb(0, 0, 0), rgb(19, 19, 19) 200%);
     display: block;
     width: 100vw;

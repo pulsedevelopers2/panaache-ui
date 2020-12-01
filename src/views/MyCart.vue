@@ -1,5 +1,5 @@
 <template>
-  <div class="mycart-wrapper row">
+  <div class="mycart-wrapper row" @contextmenu="preventDefault($event)">
     <nav-bar />
     <SideNav />
     <h3 v-if="cart && cart.length" class="col-xs-12">
@@ -45,12 +45,6 @@
           <h4 class="col-xs-6">
             : {{ total }}/-
           </h4>
-          <h4 class="col-xs-6 grey">
-            Discount
-          </h4>
-          <h4 class="col-xs-6 grey">
-            : 0/-
-          </h4>
           <tr class="divider col-xs-12" />
           <h4 class="col-xs-6">
             Grand Total
@@ -61,7 +55,17 @@
           <p class="col-xs-12 inclusive">** Price inclusive of GST **</p>
         </div>
       </span>
-      <button class="checkout col-xs-4">
+      <span class="address col-xs-12">
+        <h3> Delivery Address</h3>
+        <input v-model="name" type="text" class="col-xs-12" placeholder="Name on Invoice" maxlength="32">
+        <input v-model="address" type="text" class="col-xs-12" placeholder="Full Address" maxlength="100">
+        <input v-model="pin" type="number" class="col-xs-12" placeholder="Pin-Code">
+        <input v-model="city" type="text" class="col-xs-12" placeholder="City">
+        <input v-model="district" type="text" class="col-xs-12" placeholder="District">
+        <input v-model="state" type="text" class="col-xs-12" placeholder="State">
+        <input v-model="phone" type="text" class="col-xs-12" placeholder="Phone">
+      </span>
+      <button class="checkout col-xs-4" @click="paynow()">
         CHECKOUT
       </button>
     </div>
@@ -75,6 +79,17 @@ export default {
     components: {
         NavBar,
         SideNav
+    },
+    data() {
+      return {
+        name: null,
+        address: null,
+        pin: null,
+        city: null,
+        district: null,
+        state: null,
+        phone: null
+      }
     },
     computed: {
         ...mapState({
@@ -109,7 +124,8 @@ export default {
         ...mapActions({
             viewMyCart: 'cart/viewMyCart',
             cachedVerify: 'login/cachedVerify',
-            deleteMyItem: 'cart/deleteMyItem'
+            deleteMyItem: 'cart/deleteMyItem',
+            checkout: 'cart/checkout'
         }),
         refreshCart(){
             this.total = this.cart.reduce((prev, curr) => { return prev + curr.finalPrice }, 0);
@@ -120,8 +136,20 @@ export default {
             let token = this.token;
             await this.deleteMyItem({id, token});
             this.refreshCart()
-
+        },
+        preventDefault(e) {
+          e.preventDefault();
+          alert('Right click Not allowed')
+      },
+      async paynow() {
+        let token = this.token;
+        let cart = this.cart
+        if (this.phone) {
+          alert('Add Complete Delivery Address')
+        } else {
+        await this.checkout({ token, cart });
         }
+      }
     }
 }
 </script>
@@ -197,7 +225,7 @@ export default {
     border: 1px solid rgb(158, 113, 109);
 }
 .total-details h4 {
-    min-height: 70px;
+    min-height: 50px;
 }
 .checkout {
     border: 1px solid rgb(158, 113, 109);
@@ -211,6 +239,10 @@ export default {
 .inclusive {
     text-align: center;
 }
+.address {
+  padding: 5%;
+  border: 1px solid rgb(158, 113, 109);
+}
 @media screen and (orientation: portrait){
     h5, h6 {
         font-size: 80%;
@@ -218,5 +250,14 @@ export default {
     .invoices-wrapper {
         margin-top: 1%;
     }
+}
+input{
+    height: 4vh;
+    color: var(--text);
+    margin: 10px 0px;
+    border: 0px;
+    padding: 1%;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    background: transparent;
 }
 </style>

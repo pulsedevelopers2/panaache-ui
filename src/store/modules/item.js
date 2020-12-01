@@ -1,6 +1,5 @@
 import { getField, updateField } from 'vuex-map-fields';
 import axios from 'axios'
-axios.defaults.timeout = 4000;
 // initial state
 const initialState = {
     item : null,

@@ -1,6 +1,5 @@
 import { getField, updateField } from 'vuex-map-fields';
 import axios from 'axios'
-axios.defaults.timeout = 10000;
 // initial state
 const initialState = {
     loggedIn : "false",
@@ -98,6 +97,7 @@ const actions = {
                     'signup': encryptedBody
                 }
             }).then((response) => {
+                console.log(response)
                 if( response.headers.signup == 'otpSent'){
                     commit('askOtp','true');
                 } else if(response.headers.signup == 'userExist'){
@@ -106,6 +106,7 @@ const actions = {
             });
         }
         catch (error) {
+            console.log(error)
             commit('loggedIn','failed');
         }
     },
@@ -122,7 +123,6 @@ const actions = {
             }).then((response) => {
                 if (response.headers.error) {
                     commit('failedOtp','true')
-                    throw Error
                 } else if (response.status <= 299 && response.headers.token) {
                     commit('loggedIn','true');
                     let decrypted = response.headers.token && atob(response.headers.token) || null;

@@ -8,7 +8,7 @@
             <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
             <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
             <input type="submit" class="submit col-xs-12" text="LOGIN" @click="log()">
-            <p class="white"> New to Panaache? <span class="blue" @click="initialize('signup')">Create an Account</span></p>
+            <p class="white"> New to Panaache? <span class="blue" @click="initialize('signup')">Create an Account</span> | <a href="/reset" class="forgot-text"> Forgot Password </a></p>
           </span>
         </span>
         <span v-if="block=='signup'" class="Login">
@@ -18,6 +18,7 @@
         <span v-if="askOtp=='true' && block=='login'" class="askOtp row">
           <h3>Account not yet Verified<br>please Verify</h3>
           <input v-model="emailOtp" type="number" class="input col-xs-12" placeholder="Email OTP">
+          <input v-model="mobileOtp" type="number" class="input col-xs-12" placeholder="Mobile OTP">
           <p v-if="failedOtp=='true'" class="red">Wrong otp entered please retry</p>
           <button class="otpSub col-xs-3" @click="verify()">Verify</button>
           <span class="resend col-xs-4" @click="resendMe()">Resend otp</span>
@@ -45,7 +46,8 @@ export default {
             email: null,
             password: null,
             emailOtp: null,
-            block:'login'
+            block:'login',
+            mobileOtp: null
         }
     },
     computed: {
@@ -58,7 +60,7 @@ export default {
     },
     methods: {
         async verify() {
-        let body = {email: this.email, password: this.password, emailOtp: this.emailOtp}
+        let body = {email: this.email, password: this.password, emailOtp: this.emailOtp, mobileOtp: this.mobileOtp}
         await this.otpVerify({ body });
       },
       async resendMe(){
@@ -114,7 +116,6 @@ td {
   padding: 2%;
   margin: 1%;
   background-color: #4bb543;
-  
 }
 .otpInput {
   margin: 1%;
@@ -122,10 +123,6 @@ td {
 .blue{
     color: rgb(151, 129, 5);
     cursor: pointer;
-}
-.red-failed {
-    background-color: rgb(237, 67, 55,0.6);
-    border: 1px solid rgb(238, 54, 54);
 }
 .login-box {
     background: rgba(124, 124, 124, 0.2);
@@ -150,6 +147,7 @@ td {
     color: var(--text);
     margin: 10px 0px;
     border: 0px;
+    padding: 1%;
     border-bottom: 1px solid black;
     background: transparent;
 }
@@ -178,5 +176,9 @@ td {
   .right h3{
     font-size: 90%;
   }
+}
+.forgot-text{
+  text-decoration: none;
+  color: rgb(104, 104, 104);
 }
 </style>

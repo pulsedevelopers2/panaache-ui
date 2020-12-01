@@ -68,6 +68,7 @@
           </td>
         </tr>
       </table>
+      <span class="map" />
     </div>
   </div>
 </template>
@@ -91,6 +92,26 @@ export default {
     ...mapState({
       loggedIn: state => state.login.loggedIn
     })
+  },
+  async created() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(55.378051, -3.435973),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: 8
+    });
+
+    var locations = [
+        new google.maps.LatLng(54.97784, -1.612916),
+        new google.maps.LatLng(55.378051, -3.435973)
+        // and additional coordinates, just add a new item
+    ];
+
+    locations.forEach(function (location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    });
   }
   }
 </script>

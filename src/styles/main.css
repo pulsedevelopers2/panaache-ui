@@ -148,3 +148,7 @@ html, body {
         transform: translate(0%, 0);
       }
   }
+  .red-failed {
+    background-color: rgb(237, 67, 55,0.6);
+    border: 1px solid rgb(238, 54, 54);
+}

@@ -1,11 +1,11 @@
 import { getField, updateField } from 'vuex-map-fields';
 import axios from 'axios'
-axios.defaults.timeout = 4000;
 // initial state
 const initialState = {
     cart: null,
     cartLoad: false,
-    deleted: null
+    deleted: null,
+    checkout: null
 };
 // getters
 const getters = {
@@ -62,6 +62,29 @@ const actions = {
     } catch (error) {
         commit('deleted','failed')
     }
+    },
+    async checkout({ commit }, {token, cart}) {
+        commit('checkout',null);
+        try {
+        let tokenBody = btoa(JSON.stringify({
+            token: token,
+            cacheToken: $cookies.get('cacheToken')
+        }));
+        let stringBody = JSON.stringify(cart);
+        let encryptedBody = btoa(stringBody);
+        axios.post("http://localhost:8080/placeorder", {
+            cart: encryptedBody
+        }, {
+            headers: {
+                'Access-Control-Allow-Origin':'*',
+                'token': tokenBody
+            }
+        }).then(function(response) {
+            console.log(response)
+        })
+    } catch(error){
+        commit('checkout','failed');
+    }
     }
 }
 const mutations = {
@@ -74,6 +97,9 @@ const mutations = {
       },
       deleted (state, deleted) {
           state.deleted = deleted
+      },
+      checkout(state, checkout) {
+          state.checkout = checkout
       }
   };
 

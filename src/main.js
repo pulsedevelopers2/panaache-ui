@@ -16,7 +16,8 @@ let routes = {
       '/login': () => import('@/views/Login'),
       '/solitaireLD': () => import('@/views/Solitaire'),
       '/mycart': () => import('@/views/MyCart'),
-      '/reset': () => import('@/views/Forgot')
+      '/reset': () => import('@/views/Forgot'),
+      '/myorders': () => import('@/views/MyOrders')
     }
 new Vue({
   store,

@@ -60,9 +60,18 @@
         <input v-model="name" type="text" class="col-xs-12" placeholder="Name on Invoice" maxlength="32">
         <input v-model="address" type="text" class="col-xs-12" placeholder="Full Address" maxlength="100">
         <input v-model="pin" type="number" class="col-xs-12" placeholder="Pin-Code">
-        <input v-model="city" type="text" class="col-xs-12" placeholder="City">
-        <input v-model="district" type="text" class="col-xs-12" placeholder="District">
-        <input v-model="state" type="text" class="col-xs-12" placeholder="State">
+        <div class="dropper col-xs-12">
+          <select v-model="curr_place">
+            <option disabled="disabled" selected="selected" value="---">
+              ---
+            </option>
+            <option v-for="key in pin_details" :key="key.Name" :value="key.Name">
+              {{ key.Name }}
+            </option>
+          </select>
+        </div>
+        <input v-model="district" class="col-xs-12" placeholder="District" disabled>
+        <input v-model="state" type="text" class="col-xs-12" placeholder="State" disabled>
         <input v-model="phone" type="text" class="col-xs-12" placeholder="Phone">
       </span>
       <button class="checkout col-xs-4" @click="paynow()">
@@ -78,6 +87,7 @@ import Checkout from './Checkout.vue'
 import NavBar from '../NavBar.vue'
 import SideNav from '../components/SideNav'
 export default {
+  inject: ['axios'],
     components: {
         NavBar,
         SideNav,
@@ -92,7 +102,9 @@ export default {
         district: null,
         state: null,
         phone: null,
-        pay: false
+        pay: false,
+        pin_details: [],
+        curr_place: null
       }
     },
     computed: {
@@ -115,6 +127,20 @@ export default {
             if (curr) {
                 this.refreshCart();
             }
+        },
+        pin: async function(curr, prev) {
+          if (curr > 99999 && curr < 1000000 && prev<curr) {
+            this.pincodeDetails(curr)
+          } else if (curr >= 1000000) {
+            this.pin = this.pin/10 | 0
+          }
+        },
+        curr_place: function(curr) {
+          if(curr) {
+            console.log(this.pin_details[curr].District)
+            this.district = this.pin_details[curr].District;
+            this.state = this.pin_details[curr].State
+          }
         }
     },
     async created() {
@@ -145,9 +171,24 @@ export default {
         },
         preventDefault(e) {
           e.preventDefault();
-          alert('Right click Not allowed')
+      },
+      async pincodeDetails(pin) {
+        this.district = "loading..."
+        this.state = "loading"
+        let result = await this.axios.get('https://api.postalpincode.in/pincode/'+pin).then((response)=>{
+          let json = []
+          if (response.data[0].PostOffice) {
+            json = response.data[0].PostOffice.reduce((prev, curr) => {
+              prev[curr.Name] = curr;
+              return prev;
+            },{})
+          }
+          this.pin_details = json
+          this.curr_place = Object.keys(json)[0]
+        })
       },
       async paynow() {
+        this.pay = false;
         let token = this.token;
         let cart = this.cart
         let address = {
@@ -159,7 +200,7 @@ export default {
           state: this.state,
           phone: this.phone
         }
-        if (this.phone) {
+        if (false) {
           alert('Add Complete Delivery Address')
         } else {
           await this.checkout({ token, cart, address });
@@ -235,6 +276,10 @@ export default {
 .total {
     border-bottom: 1px solid rgb(158, 113, 109);
 }
+.dropper {
+  padding-left: 0;
+  padding-right: 0;
+}
 .invoices-wrapper .checkout {
     margin-top: 1%;
     padding: 4%;
@@ -262,6 +307,10 @@ export default {
 .address {
   padding: 5%;
   border: 1px solid rgb(158, 113, 109);
+}
+select {
+  padding-right: 0.5%;
+  padding-left: 0.5%;
 }
 @media screen and (orientation: portrait){
     h5, h6 {

@@ -64,7 +64,7 @@
         </div>
         <span class="order-basis" />
         <h2 class="pricing">
-          ₹ {{ (pricing && goldPricingJson) && Math.round((Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100) + pricing.diamond_cost + goldPricingJson[curr_size].mkCharges + Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05)) }}/-
+          ₹ {{ totalPrice }}/-
         </h2>
         <h5 class="pricing">Unbeatable price Guranteed! Compare the price anywere </h5>
         <div class="purchase col-xs-12 row">
@@ -98,13 +98,13 @@
         </p>
         <tr class="divider col-xs-12" />
         <p class="specification col-xs-12">
-          <span class="chart_title col-md-2 col-xs-6">Gold Weight</span><span class="value col-md-2 col-xs-6">: {{ goldPricingJson && goldPricingJson[curr_size].weight || 'Error' }} gms</span>
+          <!-- <span class="chart_title col-md-2 col-xs-6">Gold Weight</span><span class="value col-md-2 col-xs-6">: {{ goldPricingJson && goldPricingJson[curr_size].weight || 'Error' }} gms</span> -->
         </p>
         <p class="specification col-xs-12">
-          <span class="chart_title col-md-2 col-xs-6">Diamond weight</span><span class="value col-md-2 col-xs-6">: {{ total_crt || 'Error' }} ct</span>
+          <!-- <span class="chart_title col-md-2 col-xs-6">Diamond weight</span><span class="value col-md-2 col-xs-6">: {{ total_crt || 'Error' }} ct</span> -->
         </p>
         <p class="specification col-xs-12">
-          <span class="chart_title col-md-2 col-xs-6">total weight</span><span class="value col-md-2 col-xs-6">: {{ Math.round((total_crt/5 + (goldPricingJson && goldPricingJson[curr_size].weight || null))*1000)/1000 }} gms</span>
+          <!-- <span class="chart_title col-md-2 col-xs-6">total weight</span><span class="value col-md-2 col-xs-6">: {{ Math.round((total_crt/5 + (goldPricingJson && goldPricingJson[curr_size].weight || null))*1000)/1000 }} gms</span> -->
         </p>
       </div>
     </div>
@@ -122,8 +122,8 @@
       <tr class="table_data row">
         <td class="col-xs-3"><h6>Gold Metal</h6></td>
         <td class="col-xs-3"><h6>{{ curr_metal && (curr_metal + " (" + purity[curr_metal.toUpperCase()]*100 + "%purity )") || (purity['default'] + "%purity") }}</h6></td>
-        <td class="col-xs-3"><h6>{{ goldPricingJson && goldPricingJson[curr_size].weight || 'Error' }} gms</h6></td>
-        <td class="col-xs-3"><h6>{{ goldPricingJson && Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100 || 'Error' }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ (goldPricingJson && Object.keys(goldPricingJson).length && curr_size) && goldPricingJson && goldPricingJson[curr_size].weight || pricing.gold_wt }} gms</h6></td>
+        <td class="col-xs-3"><h6>{{ Math.round(goldRate*100)/100 }}/-</h6></td>
       </tr>
       <tr class="table_data row">
         <td class="col-xs-3" />
@@ -135,7 +135,7 @@
         <td class="col-xs-3"><h6>Diamond</h6></td>
         <td class="col-xs-3"><h6>{{ curr_quality + ' ' + curr_color }}</h6></td>
         <td class="col-xs-3"><h6> {{ diamond.weight + ' ct (' + diamond.quantity + ') ' }}</h6></td>
-        <td class="col-xs-3"><h6> {{ diamond.price }}/- </h6></td>
+        <td class="col-xs-3"><h6> {{ Math.round(diamondCost * 100)/100 }}/- </h6></td>
       </tr>
       <tr class="table_data row">
         <td class="col-xs-3" />
@@ -147,19 +147,19 @@
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3"><h6>Making Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ goldPricingJson[curr_size].mkCharges }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ Math.round(making_charges * 100)/100 }}/-</h6></td>
       </tr>
       <tr class="table_data row">
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3"><h6>GST & Transaction Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05) }}/-</h6></td>
+        <td class="col-xs-3"><h6>{{ Math.round(gst * 100)/100 }}/-</h6></td>
       </tr>
       <tr class="table_data row total">
         <td class="col-xs-3" />
         <td class="col-xs-3" />
         <td class="col-xs-3">Total</td>
-        <td class="col-xs-3">{{ Math.round((Math.round((goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] * 100)/100) + pricing.diamond_cost + goldPricingJson[curr_size].mkCharges + Math.round((pricing.diamond_cost + (goldPricingJson[curr_size].price/0.76)*purity[curr_metal && curr_metal.toUpperCase() || 'default'] + goldPricingJson[curr_size].mkCharges)*0.05)) }}/-</td>
+        <td class="col-xs-3">{{ totalPrice }}/-</td>
       </tr>
     </table>
   </span>
@@ -180,6 +180,11 @@ export default {
             errorCart: false,
             pos: 0,
             goldPricingJson: null,
+            goldRate: null,
+            diamondCost: null,
+            making_charges: null,
+            gst: null,
+            totalPrice: null,
             purity: {
               "default": 0.77,
               "ROSE GOLD": 0.76,
@@ -196,11 +201,24 @@ export default {
             added: state => state.item.added
         })
     },
+    watch : {
+      curr_size: function(curr, prev) {
+        if (prev != curr && curr && this.pricing) {
+          this.updateRateCard();
+        }
+      },
+      curr_metal: function(curr, prev) {
+        if (prev != curr && curr && this.pricing) {
+          this.updateRateCard()
+        }
+      }
+    },
     async created(){
         this.total_crt = Math.round(this.item.item_details.reduce((total, curr) => {return total + curr.weight},0)*1000)/1000;
         this.curr_image = this.item.image_link[0];
         this.curr_metal = this.item.metal && this.item.metal[0] || null;
-        this.curr_size = this.item.gold_details && this.item.gold_details[0].size || null;
+        console.log(this.item.gold_details)
+        this.curr_size = (this.item.gold_details && this.item.gold_details.length) && this.item.gold_details[0].size || null;
         this.avail_sizes = this.item.gold_details.map(item => {return item.size})
         this.order_sizes = this.item.sizes;
         this.curr_color = this.item.dcolors && this.item.dcolors[0] || null;
@@ -210,13 +228,13 @@ export default {
             d_quality: this.curr_quality,
             d_color: this.curr_color
           }
-          let tok = this.token; 
+          let tok = this.token;
           await this.getPricing({body, tok})
-        this.goldPricingJson = this.pricing && this.pricing.gold_details.reduce((prev, curr) => {
+        this.goldPricingJson = (this.pricing && this.pricing.gold_details && this.pricing.gold_details.length) && this.pricing.gold_details.reduce((prev, curr) => {
           prev[curr.size] = curr;
-          console.log(curr)
           return prev;
-        },{})
+        },{}) || {}
+        this.updateRateCard()
     },
     methods: {
         ...mapActions({
@@ -232,6 +250,7 @@ export default {
           }
           let tok = this.token;
           await this.getPricing({body, tok})
+          this.updateRateCard()
         },
         async updateCart(){
           let body = {
@@ -269,6 +288,15 @@ export default {
           } else {
             this.resetCartAdd();
           }
+        },
+        async updateRateCard(){
+          console.log(this.pricing)
+          this.goldRate = (this.goldPricingJson && Object.keys(this.goldPricingJson).length && this.curr_size) && (this.goldPricingJson[this.curr_size].price/0.77 * this.purity[this.curr_metal && this.curr_metal.toUpperCase() || 'default']) || (this.pricing.gold_rate/0.77 * this.purity[this.curr_metal && this.curr_metal.toUpperCase() || 'default']);
+          this.diamondCost = this.pricing && this.pricing.diamond_cost || 0;
+          this.making_charges = (this.goldPricingJson && Object.keys(this.goldPricingJson).length && this.curr_size) && this.goldPricingJson[this.curr_size].mkCharges || this.pricing.making_charges;
+          this.gst = (this.goldRate + this.diamondCost + this.making_charges)*0.05;
+          console.log(this.goldRate, this.diamondCost, this.making_charges, this.gst)
+          this.totalPrice = Math.round((this.goldRate + this.diamondCost + this.making_charges + this.gst));
         }
     }
 }

@@ -35,7 +35,7 @@ export default {
       }),
       preventDefault(e) {
         e.preventDefault();
-        alert('Right click Not allowed')
+        
       }
     }
 }

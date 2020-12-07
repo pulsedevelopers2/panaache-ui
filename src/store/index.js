@@ -6,6 +6,7 @@ import login from './modules/login';
 import items from './modules/items';
 import item from './modules/item';
 import cart from './modules/cart';
+import verify from './modules/verify'
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     login,
     items,
     item,
-    cart
+    cart,
+    verify
   },
   strict: true
 });

@@ -209,10 +209,20 @@
               Login
             </a>
           </div>
-          <div v-if="loggedIn == 'true'" class="dropdown">
-            <a class="option-dropdown" href="#">
-              My Profile
+          <div class="dropdown show">
+            <a id="dropdownMenuLink"
+               class="option-dropdown"
+               href="#"
+               role="button"
+               data-toggle="dropdown"
+            >
+              My Account
             </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/myorders">My Orders</a><br>
+              <a class="dropdown-item" href="/mycart">My Cart</a><br>
+              <a class="dropdown-item" href="/">My Account Details</a>
+            </div>
           </div>
           <div v-if="loggedIn == 'true'" class="dropdown">
             <a class="option-dropdown" href="#" @click="reset()">

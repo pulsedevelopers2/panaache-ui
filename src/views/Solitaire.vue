@@ -115,7 +115,7 @@ export default {
     methods: {
       preventDefault(e) {
         e.preventDefault();
-        alert('Right click Not allowed')
+        
       }
     }
 }

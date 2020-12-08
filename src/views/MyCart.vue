@@ -16,8 +16,8 @@
           <span class="item_details col-xs-12 col-md-10 row">
             <h4 class="col-xs-12">{{ item.title }}</h4>
             <span class="col-xs-10">
-              <h5>Quality: <span class="pink">{{ item.quality }}</span>, Color: <span class="pink">{{ item.color }}</span>, size: <span class="pink">{{ item.size }}</span>, metal: <span class="pink">{{ item.metal }}</span></h5>
-              <h5>Quantity: <span class="pink">{{ item.quantity }}</span></h5>
+              <h5>Quality: <span class="pink">{{ item.quality || '--' }}</span>, Color: <span class="pink">{{ item.color || '--' }}</span>, size: <span class="pink">{{ item.size || '--' }}</span>, metal: <span class="pink">{{ item.metal.toLowerCase() != 'default' && item.metal || '--' }}</span></h5>
+              <h5>Quantity: <span class="pink">{{ item.quantity || '--' }}</span></h5>
               <h5><b>₹ {{ item.finalPrice }}/-</b></h5>
             </span>
             <span class="col-xs-12 col-md-2">
@@ -173,8 +173,8 @@ export default {
           e.preventDefault();
       },
       async pincodeDetails(pin) {
-        this.district = "loading..."
-        this.state = "loading"
+        this.district = "Loading..."
+        this.state = "Loading..."
         let result = await this.axios.get('https://api.postalpincode.in/pincode/'+pin).then((response)=>{
           let json = []
           if (response.data[0].PostOffice) {

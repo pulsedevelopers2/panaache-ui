@@ -7,18 +7,14 @@
       <div v-for="key in Object.keys(items)" :key="key" class="item col-xs-12">
         <a :href="'/item?&item=' + items[key].item_id" class="col-xs-12 row item_link">
           <img :src="items[key].image_link[0]" class="col-xs-12 col-sm-3">
-          <div class="col-xs-12 col-sm-9 row">
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6">Item </span><span class="rows col-xs-12 col-md-6"> {{ items[key].title }}</span>
-            </p>
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-2">Quality : {{ items[key].quality }} </span><span class="rows col-xs-12 col-md-2">Color : {{ items[key].color }} </span><span v-if="items[key].metal" class="rows col-xs-12 col-md-2">Metal : {{ items[key].metal }}</span> <span v-if="items[key].size" class="rows col-xs-12 col-md-2">Size : {{ items[key].size }}</span>
-            </p>
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6">Order Id </span><span class="rows col-xs-12 col-md-6"> {{ items[key].tnx_id }}</span>
-            </p>
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6">Date </span><span class="rows col-xs-12 col-md-6"> {{ items[key].time.split("T")[0] }}</span>
-            </p>
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6">Address </span><span class="rows col-xs-12 col-md-6"> {{ Object.values(items[key].address).join(', ') }}</span>
-            </p>
-            <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6">Quantity </span><span class="rows col-xs-12 col-md-6"> {{ items[key].quantity }}</span>
+          <div class="col-xs-12 col-sm-9 row item_details">
+            <p class="col-xs-12 row"><span class="rows col-xs-12 title"> <h4>{{ items[key].title }} </h4></span>
+              <span class="rows col-xs-6 col-md-2">Quality : {{ items[key].quality }} </span><span class="rows col-xs-6 col-md-2">Color : {{ items[key].color }} </span><span v-if="items[key].metal" class="rows col-xs-6 col-md-2">Metal : {{ items[key].metal }}</span> <span v-if="items[key].size" class="rows col-xs-6 col-md-2">Size : {{ items[key].size }}</span>
+              <!-- <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6"> {{ items[key].tnx_id }}</span>
+            </p> -->
+              <span class="rows col-xs-12"> Date: {{ items[key].time.split("T")[0] }}</span>
+              <span class="rows col-xs-12"> {{ Object.values(items[key].address).join(', ') }}</span>
+              <span class="rows col-xs-12"> Quantity : {{ items[key].quantity }}</span>
             </p>
           </div>
         </a>
@@ -107,6 +103,9 @@ export default {
 p {
     color: white;
 }
+.item_link {
+    padding: 0;
+}
 .item_link img {
     max-height: 20vh;
     object-fit: contain;
@@ -114,5 +113,19 @@ p {
 .rows {
     margin-bottom: 1vh;
     overflow-wrap: break-word;
+}
+.item_details {
+    padding: 0;
+}
+.item_details p .title {
+    padding: 1vw;
+}
+@media screen and (orientation: portrait) {
+.item_details p .title {
+    text-align: center;
+    }
+}
+.item_details p {
+    padding: 0;
 }
 </style>

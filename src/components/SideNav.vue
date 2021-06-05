@@ -1,109 +1,17 @@
 <template>
   <span class="wrapper">
-    <div class="side-nav hidden-lg hidden-mg hidden-xs hidden-sm">
-      <div class="dropdown nav-options">
-        <div class="fa fa-home">
-          <span class="white"> H</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-diamond">
-          <span class="white"> D</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-life-ring">
-          <span class="white"> S</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-circle-o">
-          <span class="white"> G</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-circle-o-notch">
-          <span class="white"> P</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-building-o">
-          <span class="white"> L</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="dropdown nav-options">
-        <div class="fa fa-vcard-o">
-          <span class="white"> K</span>
-        </div>
-        <div class="dropdown-content row">
-          <span class="col-xs-12 home">Home</span>
-          <div class="home-options-div col-xs-6">
-            <p>Rings</p>
-            <p>Rings</p>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="dropdown2 user col-xs-1">
       <i v-if="!menuToggled" class="three-line-dim fa fa-bars" @click="menuToggled = true" />
       <div class="dropdown-content2" :class="menuToggled? 'shows': ''">
         <i v-if="menuToggled" class="three-line-dim fa fa-times" @click="menuToggled = false" />
         <div v-if="loggedIn == 'true'" class="user-container">
-          <p class="user-tile golden"><span class="red">{{ email.charAt(0) }}</span>{{ email.charAt(1) }}</p>
+          <p class="user-tile"><span class="red">{{ email.charAt(0) }}</span>{{ email.charAt(1) }}</p>
         </div>
         <p v-if="loggedIn == 'true'" class="user-email">{{ email }}</p>
         <div class="dropdown-wrapper">
-          <div v-if="loggedIn != 'true'" class="dropdown">
+          <div class="dropdown">
             <a class="option-dropdown" href="/">
-              Home
+              <span class="maroon-text">H</span> o m e
             </a>
           </div>
           <div class="dropdown show">
@@ -113,33 +21,27 @@
                role="button"
                data-toggle="dropdown"
             >
-              Jewelz
+              <span class="maroon-text">J</span> e w e l z
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/items?&item=rings">Rings</a><br>
-              <a class="dropdown-item" href="/items?&item=tanmaiya">Tanmaiya</a><br>
-              <a class="dropdown-item" href="/items?&item=earings">Earings</a><br>
-              <a class="dropdown-item" href="/items?&item=pendents">Pendents</a><br>
-              <a class="dropdown-item" href="/items?&item=braclets">Braclets</a><br>
-              <a class="dropdown-item" href="/items?&item=necklace">Necklace</a>
+              <a class="dropdown-item" href="/items?&item=rings"><span class="maroon-text">R</span> i n g s</a><br>
+              <a class="dropdown-item" href="/items?&item=earings"><span class="maroon-text">E</span> a r i n g s</a><br>
+              <a class="dropdown-item" href="/items?&item=necklace"><span class="maroon-text">N</span> e c k l  a c e</a><br>
+              <a class="dropdown-item" href="/items?&item=tanmaiya"><span class="maroon-text">T</span> a n m a i y a</a><br>
+              <a class="dropdown-item" href="/items?&item=pendents"><span class="maroon-text">P</span> e n d e n t s</a><br>
+              <a class="dropdown-item" href="/items?&item=braclets"><span class="maroon-text">B</span> r a c l e t s</a><br>
+              <a class="dropdown-item" href="/items?&item=solitaire"><span class="maroon-text">S</span> o l i t a i r e</a><br>
             </div>
           </div>
           <div class="dropdown show">
             <a id="dropdownMenuLink"
                class="option-dropdown"
-               href="#"
-               role="button"
-               data-toggle="dropdown"
+               href="/solitaireLD"
             >
-              Solitaire Collection
+              <span class="maroon-text">D</span> i a m o n d z
             </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/solitaireLD">Loose Diamonds</a><br>
-              <a class="dropdown-item" href="/items?&item=rings,solitaire">Rings</a><br>
-              <a class="dropdown-item" href="#">Earings</a>
-            </div>
           </div>
+          
           <div class="dropdown show">
             <a id="dropdownMenuLink"
                class="option-dropdown"
@@ -147,86 +49,40 @@
                role="button"
                data-toggle="dropdown"
             >
-              Gold
+              <span class="maroon-text">P</span> a n a a c h e <span class="enlarge">?</span>
             </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a><br>
-              <a class="dropdown-item" href="#">Another action</a><br>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
           </div>
           <div class="dropdown show">
+            <a id="dropdownMenuLink"
+               class="option-dropdown"
+               href="/wholesale"
+            >
+              <span class="maroon-text">F</span> r a n c h i z e
+            </a>
+          </div>
+          <div v-if="loggedIn == 'true'" class="dropdown show">
             <a id="dropdownMenuLink"
                class="option-dropdown"
                href="#"
                role="button"
                data-toggle="dropdown"
             >
-              Platinum
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a><br>
-              <a class="dropdown-item" href="#">Another action</a><br>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropdown show">
-            <a id="dropdownMenuLink"
-               class="option-dropdown"
-               href="#"
-               role="button"
-               data-toggle="dropdown"
-            >
-              Stores
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a><br>
-              <a class="dropdown-item" href="#">Another action</a><br>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div class="dropdown show">
-            <a id="dropdownMenuLink"
-               class="option-dropdown"
-               href="#"
-               role="button"
-               data-toggle="dropdown"
-            >
-              About Panaache
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a><br>
-              <a class="dropdown-item" href="#">Another action</a><br>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-          <div v-if="loggedIn != 'true'" class="dropdown">
-            <a class="option-dropdown" href="/login">
-              Login
-            </a>
-          </div>
-          <div class="dropdown show">
-            <a id="dropdownMenuLink"
-               class="option-dropdown"
-               href="#"
-               role="button"
-               data-toggle="dropdown"
-            >
-              My Account
+              <span class="maroon-text">A</span> c c o u n t
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/myorders">My Orders</a><br>
-              <a class="dropdown-item" href="/mycart">My Cart</a><br>
-              <a class="dropdown-item" href="/">My Account Details</a>
+              <a class="dropdown-item" href="/myorders"><span class="maroon-text">O</span> r d e r s</a><br>
+              <a class="dropdown-item" href="/mycart"><span class="maroon-text">C</span> a r t</a><br>
+              <a class="dropdown-item" href="/"><span class="maroon-text">A</span> c c o u n t D e t a i l s</a>
             </div>
           </div>
           <div v-if="loggedIn == 'true'" class="dropdown">
             <a class="option-dropdown" href="#" @click="reset()">
-              Logout
+              <span class="maroon-text">L</span> o g o u t
+            </a>
+          </div>
+          <div v-if="loggedIn != 'true'" class="dropdown">
+            <a class="option-dropdown" href="/login">
+              <span class="maroon-text">L</span> o g i n
             </a>
           </div>
         </div>
@@ -257,7 +113,7 @@ export default {
 </script>
 <style scoped>
 .side-nav {
-  position: fixed;
+  position: absolute;
   height: 50vh;
   left: 0;
   top: 30vh;
@@ -267,12 +123,16 @@ export default {
   border-radius: 0px 10px 10px 0px;
   animation-duration: 8s;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.7)
+  background-color: rgba(0, 0, 0)
 }
 .nav-options .fa {
   color: transparent;
   background: linear-gradient(90deg, white, grey, white);
   background-clip: text;
+}
+.dash {
+  display: inline-block;
+  border: 5px solid black;
 }
 .nav-options .fa-circle-o {
   color: transparent;
@@ -288,7 +148,7 @@ export default {
 .dropdown-content {
   display: none;
   position: absolute;
-  background:rgb(0, 0, 0, 0.9);
+  background:transparent;
   color: rgb(255, 255, 255);
   /* text-align: center; */
   min-width: 160px;
@@ -328,8 +188,8 @@ export default {
   left: 0;
   height: 100vh;
   width: 20%;
-  backdrop-filter: blur(7px);
-  background: rgb(0, 0, 0, 0.2);
+  /* backdrop-filter: blur(8px); */
+  background: transparent;
   color: rgb(255, 255, 255);
   min-width: 160px;
   overflow-y: scroll;
@@ -383,12 +243,13 @@ scrollbar-width: none;
 .dropdown-content2 .dropdown a {
     display: block;
     outline: none;
+    font-size: 80%;
     width: inherit;
     text-align: left !important;
     text-decoration: none;
     color: white;
     background-color: inherit;
-    padding: 1.4vh;
+    padding: 1.2vh;
 }
 .dropdown-content2 .dropdown {
     width: 100% !important;
@@ -404,6 +265,16 @@ scrollbar-width: none;
     animation: fading;
     animation-duration: 1s;
 }
+.dropdown a {
+  text-shadow: -10px 10px 20px 
+            rgba(0, 0, 0, 0.5),  
+            0.7px 0.7px 0.7px 
+            rgba(116, 116, 116, 0.9); 
+  color:transparent;
+    background-color: rgb(255, 255, 255);
+    background-clip: text;
+    
+}
 .user-container {
     width: 100%;
     padding-top: 40%;
@@ -411,6 +282,7 @@ scrollbar-width: none;
 }
 .user-tile {
     position: absolute;
+    text-shadow: 1.5px 1.5px 0px rgba(117, 117, 117, 0.5) !important;
     font-size: 500%;
     top: 0;
     left: 5%;
@@ -424,11 +296,26 @@ scrollbar-width: none;
 }
 .three-line-dim {
   position: absolute;
-  color: rgb(87, 87, 87);
+  color: rgb(122, 122, 122);
   top: 0px;
   left: 0px;
   padding-top: 20px;
   padding-left: 20px;
-  font-size: 200%;
+  font-size: 170%;
+}
+.enlarge, .maroon-text {
+  font-size: 140%;
+  color:transparent;
+  background-color: rgb(236, 154, 140);
+  background-clip: text;
+  text-shadow: 0px 0.7px 0px rgba(204, 144, 144, 0.5) !important;
+}
+.fa-times {
+  font-size: 150% !important;
+}
+@media screen and (orientation: portrait) {
+  .shows {
+    background: rgba(0,0,0,.7) !important;
+  }
 }
 </style>

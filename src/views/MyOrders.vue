@@ -1,26 +1,28 @@
 <template>
-  <div class="row containe">
+  <span>
     <nav-bar />
     <SideNav />
-    <h2> My Orders </h2>
-    <div v-if="loaded" class="row col-xs-12">
-      <div v-for="key in Object.keys(items)" :key="key" class="item col-xs-12">
-        <a :href="'/item?&item=' + items[key].item_id" class="col-xs-12 row item_link">
-          <img :src="items[key].image_link[0]" class="col-xs-12 col-sm-3">
-          <div class="col-xs-12 col-sm-9 row item_details">
-            <p class="col-xs-12 row"><span class="rows col-xs-12 title"> <h4>{{ items[key].title }} </h4></span>
-              <span class="rows col-xs-6 col-md-2">Quality : {{ items[key].quality }} </span><span class="rows col-xs-6 col-md-2">Color : {{ items[key].color }} </span><span v-if="items[key].metal" class="rows col-xs-6 col-md-2">Metal : {{ items[key].metal }}</span> <span v-if="items[key].size" class="rows col-xs-6 col-md-2">Size : {{ items[key].size }}</span>
-              <!-- <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6"> {{ items[key].tnx_id }}</span>
+    <div class="row containe">
+      <h2> My Orders </h2>
+      <div v-if="loaded" class="row col-xs-12">
+        <div v-for="key in Object.keys(items)" :key="key" class="item col-xs-12">
+          <a :href="'/item?&item=' + items[key].item_id" class="col-xs-12 row item_link">
+            <img :src="items[key].image_link[0]" class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-9 row item_details">
+              <p class="col-xs-12 row"><span class="rows col-xs-12 title"> <h4>{{ items[key].title }} </h4></span>
+                <span class="rows col-xs-6 col-md-2">Quality : {{ items[key].quality }} </span><span class="rows col-xs-6 col-md-2">Color : {{ items[key].color }} </span><span v-if="items[key].metal" class="rows col-xs-6 col-md-2">Metal : {{ items[key].metal }}</span> <span v-if="items[key].size" class="rows col-xs-6 col-md-2">Size : {{ items[key].size }}</span>
+                <!-- <p class="col-xs-12 row"><span class="rows col-xs-12 col-md-6"> {{ items[key].tnx_id }}</span>
             </p> -->
-              <span class="rows col-xs-12"> Date: {{ items[key].time.split("T")[0] }}</span>
-              <span class="rows col-xs-12"> {{ Object.values(items[key].address).join(', ') }}</span>
-              <span class="rows col-xs-12"> Quantity : {{ items[key].quantity }}</span>
-            </p>
-          </div>
-        </a>
+                <span class="rows col-xs-12"> Date: {{ items[key].time.split("T")[0] }}</span>
+                <span class="rows col-xs-12"> {{ Object.values(items[key].address).join(', ') }}</span>
+                <span class="rows col-xs-12"> Quantity : {{ items[key].quantity }}</span>
+              </p>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </span>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';

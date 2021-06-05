@@ -1,14 +1,19 @@
 <template>
   <div class="login-wrapper">
     <span class="login-box row">
-      <span class="login col-xs-12 col-md-6">
+      <span class="login col-xs-12 col-md-12">
         <span v-if="askOtp!='true'" class="wrapper">
-          <h2> <b>{{ block.toUpperCase() }} </b></h2>
-          <span v-if="block=='login'" class="Login">
-            <input v-model="email" type="text" class="name input col-xs-12" placeholder="Email">
-            <input v-model="password" type="password" class="password input col-xs-12" placeholder="Password">
-            <input type="submit" class="submit col-xs-12" text="LOGIN" @click="log()">
-            <p class="white"> New to Panaache? <span class="blue" @click="initialize('signup')">Create an Account</span> | <a href="/reset" class="forgot-text"> Forgot Password </a></p>
+          <h2> <b>{{ block.split("").join(" ") }} </b></h2>
+          <span v-if="block.toLowerCase()=='login'" class="Login">
+            <span class="col-xs-12 row input-wrapper">
+              <input v-model="email" type="text" class="name input col-xs-10" placeholder="Email | Phone">
+              <input v-model="password" type="password" class="password input col-xs-10" placeholder="Password">
+            </span>
+            <span class="buttons col-xs-12">
+              <input type="submit" class="submit col-xs-4" text="Login" value="L o g i n" @click="log()">
+            </span>
+            <span class="col-xs-12"><p class="white"> New to Panaache?</p></span>
+            <span class="col-xs-12"><p class="white"><span class="blue" @click="initialize('signup')">Create an Account</span> | <a href="/reset" class="forgot-text"> Forgot Password </a></p></span>
           </span>
         </span>
         <span v-if="block=='signup'" class="Login">
@@ -22,13 +27,11 @@
           <p v-if="failedOtp=='true'" class="red">Wrong otp entered please retry</p>
           <button class="otpSub col-xs-3" @click="verify()">Verify</button>
           <span class="resend col-xs-4" @click="resendMe()">Resend otp</span>
+          <span class="resend col-xs-4" @click="cancelMe()">Cancel</span>
         </span>
         <div v-if="loggedIn === 'failed' || resendOtp === 'failed'" class="red-failed">
-          Error logging you In ! Plese check your Internet Connection and Login Details or contact panaache@gmail.com
+          Error logging you In ! Plese check your Login Details or contact panaache@gmail.com if issue persist.
         </div>
-      </span>
-      <span class="login right verticle-aligned col-xs-12 col-md-6">
-        <h3>Assorted Collection of Exquisite diamond awaiting for you!! Login Now and Experience the Beauty of Jewelz</h3>
       </span>
     </span>
   </div>
@@ -46,7 +49,7 @@ export default {
             email: null,
             password: null,
             emailOtp: null,
-            block:'login',
+            block:'Login',
             mobileOtp: null
         }
     },
@@ -66,13 +69,17 @@ export default {
       async resendMe(){
         let body = {
           email: this.email,
-          password: this.password
+          password: this.password,
+          phone: this.phone
         }
         await this.resend({body});
       },
       async initialize(block) {
           this.block = block;
           await this.reset();
+      },
+      async cancelMe() {
+        await this.reset();
       },
         ...mapActions({
             login: 'login/login',
@@ -83,6 +90,8 @@ export default {
         async log() {
             if(this.email && this.password){
                 await this.login({ body: { email: this.email, password: this.password} })
+            } else {
+
             }
         }
     }
@@ -103,7 +112,7 @@ export default {
 }
 .resend{
   height: 100%;
-  color: rgb(9, 9, 172);
+  color: rgb(197, 197, 243);
   cursor: pointer;
   padding: 1%;
   margin: 1%;
@@ -117,27 +126,40 @@ td {
   margin: 1%;
   background-color: #4bb543;
 }
+.buttons {
+  display: flex;
+  justify-content: center;
+}
 .otpInput {
   margin: 1%;
 }
 .blue{
-    color: rgb(151, 129, 5);
+    color: rgb(236, 154, 140);
     cursor: pointer;
 }
 .login-box {
-    background: rgba(124, 124, 124, 0.2);
     background-repeat: no-repeat;
     background-size:cover;
     display: inline-block;
-    padding: 5%;
+    padding: 3%;
     vertical-align: middle;
     align-items: center;
+    transform: translateY(-10%);
     vertical-align: middle;
-    width: 100vw;
+    width: 40vw;
     box-shadow: 1px 1px 5px 1px inherit;
 }
+@media screen and (orientation: portrait){
+  .login-box {
+    width: 100vw;
+  }
+}
 .login-box h2, .login-box h3{
-    color: #846427
+  color: rgb(180, 141, 141);
+}
+.wrapper h2 {
+  margin: 5%;
+  font-family: trajan;
 }
 .login-box td {
   padding: 5%;
@@ -148,21 +170,33 @@ td {
     margin: 10px 0px;
     border: 0px;
     padding: 1%;
-    border-bottom: 1px solid black;
+    text-align: center;
+    font-size: 110%;
+    color: rgb(204, 204, 204);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-bottom: 1px solid rgb(236, 154, 140);
     background: transparent;
+}
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  padding-left: 7%;
+  padding-right: 7%;
 }
 .submit {
     height: auto;
     display: flex;
-    color:wheat;
-    background: rgb(7,7,8);
-    background: linear-gradient(90deg, rgba(7,7,8,1) 0%, rgba(108,9,9,1) 57%, rgba(7,7,8,1) 100%);
-    font-size: 25px;
+    color:rgb(255, 255, 255);
+    background: rgb(117, 76, 76);
+    font-size: 15px;
+    font-family: trajan;
     margin: 10px 0px;
     border: 0px;
+    padding: 2%;
+    margin: 5%;
     justify-content: center;
     vertical-align: middle;
-    box-shadow: 1px 1px 3px 1px black;
 }
 
 .Login-image {
@@ -179,6 +213,6 @@ td {
 }
 .forgot-text{
   text-decoration: none;
-  color: rgb(104, 104, 104);
+  color:rgb(236, 154, 140);
 }
 </style>

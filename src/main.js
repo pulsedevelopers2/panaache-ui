@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import './styles/main.css'
+import './styles/vue-fullpage.css'
 import store from './store/index'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
+import Carousel from 'vue-carousel';
+import VueFullPage from 'vue-fullpage.js'
+
+Vue.use(Carousel)
+Vue.use(VueFullPage)
 Vue.use(VueCookies)
 Vue.config.productionTip = false
-
 Vue.$cookies.config('7d')
 
 let routes = {
@@ -15,6 +20,7 @@ let routes = {
       '/checkout': () => import('@/views/Checkout'),
       '/login': () => import('@/views/Login'),
       '/solitaireLD': () => import('@/views/Solitaire'),
+      '/wholesale': () => import('@/views/wholesale'),
       '/mycart': () => import('@/views/MyCart'),
       '/reset': () => import('@/views/Forgot'),
       '/myorders': () => import('@/views/MyOrders')

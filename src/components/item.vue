@@ -3,9 +3,10 @@
     <div class="row single_item col-xs-12">
       <!-- Images Display -->
       <div class="col-xs-12 main-image">
-        <div class="image-wrapper"><img :src="curr_image"></div><br>
+        <div class="image-wrapper"><img v-if="pos==0" src="../assets/test_image.png"><img v-else src="../assets/test-image2.png"></div><br>
         <h4 class="main-title">
-          {{ item.title }} with cutting edge super shinny diamonds
+          {{ item.title }}<br>
+          {{ item.description }}
         </h4>
       </div>
       <div class="col-xs-12 col-md-6 sub-images row">
@@ -17,8 +18,8 @@
       <!-- Item Overview -->
       <div class="col-xs-12 details">
         <div class="dropdowns row">
-          <div v-if="item.dqualities" class="quality dropper col-xs-12 col-sm-6">
-            Quality:-<br>
+          <div v-if="item.dqualities" class="quality dropper col-xs-12 col-sm-2">
+            Clarity<br>
             <select v-model="curr_quality" @change="refreshPrice()">
               <option disabled="disabled" selected="selected">
                 select one option
@@ -28,8 +29,8 @@
               </option>
             </select>
           </div>
-          <div v-if="item.dcolors" class="color dropper col-xs-12 col-sm-6">
-            Color Quality:-<br>
+          <div v-if="item.dcolors" class="color dropper col-xs-12 col-sm-2">
+            Color<br>
             <select v-model="curr_color" @change="refreshPrice()">
               <option disabled="disabled" selected="selected">
                 select one option
@@ -39,8 +40,8 @@
               </option>
             </select>
           </div>
-          <div v-if="item.metal && item.metal.length" class="metal dropper col-xs-12 col-sm-6">
-            Metal:- <br>
+          <div v-if="item.metal && item.metal.length" class="metal dropper col-xs-12 col-sm-2">
+            Metal<br>
             <select v-model="curr_metal">
               <option disabled="disabled" selected="selected">
                 select one option
@@ -50,8 +51,8 @@
               </option>
             </select>
           </div>
-          <div v-if="item.gold_details && item.gold_details.length" class="size dropper col-xs-12 col-sm-6">
-            Size:-<br>
+          <div v-if="item.gold_details && item.gold_details.length" class="size dropper col-xs-12 col-sm-2">
+            Size<br>
             <select v-if="order_sizes" v-model="curr_size">
               <option disabled="disabled" selected="selected">
                 select one option
@@ -63,33 +64,46 @@
           </div>
         </div>
         <span class="order-basis" />
+        <br>
         <h2 class="pricing">
           ₹ {{ totalPrice }}/-
         </h2>
-        <h5 class="pricing">Unbeatable price Guranteed! Compare the price anywere </h5>
+        <h8 class="breakup">
+          <a href="#breakup" class="white">View Breakup</a>
+        </h8>
+        <br>
+        <h5 class="pricing beatable">Unbeatable price Guranteed! Compare the price anywere </h5>
         <div class="purchase col-xs-12 row">
-          <button class="purchase-button col-xs-6" @click="checkout()">
-            BUY
+          <button class="purchase-button col-xs-5 col-lg-2 col-md-4" @click="checkout()">
+            B u y
           </button>
-          <button class="purchase-button col-xs-6" @click="updateCart()">
-            Add to Cart
+          <button class="purchase-button col-xs-5 col-lg-2 col-md-4" @click="updateCart()">
+            Add To Cart
           </button>
         </div>
+        <!-- <div class="purchase col-xs-12 row">
+          <button class="purchase-button col-xs-10 col-lg-2 col-md-4" @click="checkout()">
+            T r y<span>&nbsp;&nbsp;</span>A t<span>&nbsp;&nbsp;</span>B o u t i q u e
+          </button>
+        </div> -->
+        <p class="wholesale col-xs-12">** For purchase at wholesale price or retail partnership <a href="/wholesale" class="wholesale-button">click here</a> ** </p>
       </div>
-      <div class="details-wrapper col-xs-12">
+      <!-- <div class="details-wrapper col-xs-12">
         <h4> Description</h4>
         <h6>
-          <!-- {{ item.description }} -->
+          {{ item.description }}
           This is the description of the project that will be displayed in justified format and clean texture giving simple and rich design format.
         </h6>
       </div>
       <div class="intro col-xs-12 row">
-        <img :src="curr_image" class="col-xs-12 col-md-5">
+        <span class="col-xs-12 col-md-5">
+          <img :src="curr_image" class="col-xs-12 col-md-5">
+        </span>
         <div class="intro-text col-xs-12 col-md-6">
-          <h2>Panaache Jewlz</h2>
-          <h5> Make every movement glamoures with Jewlz from house of Panaache. Panaache Jewlz are crafted from world class machinary and expert Craftmens that aim to deliver Perfection. Try a Jewelz from house of Panaache and make every Occasion count.</h5>
+          <h3>Panaache Jewlz</h3>
+          <h6> Make every movement glamoures with Jewlz from house of Panaache. Panaache Jewlz are crafted from world class machinary and expert Craftmens that aim to deliver Perfection. Try a Jewelz from house of Panaache and make every Occasion count.</h6>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="charts col-xs-12">
       <div class="specification-title col-xs-12 row">
@@ -97,71 +111,106 @@
           Item Details
         </p>
         <tr class="divider col-xs-12" />
-        <p class="specification col-xs-12">
-          <!-- <span class="chart_title col-md-2 col-xs-6">Gold Weight</span><span class="value col-md-2 col-xs-6">: {{ goldPricingJson && goldPricingJson[curr_size].weight || 'Error' }} gms</span> -->
-        </p>
-        <p class="specification col-xs-12">
-          <!-- <span class="chart_title col-md-2 col-xs-6">Diamond weight</span><span class="value col-md-2 col-xs-6">: {{ total_crt || 'Error' }} ct</span> -->
-        </p>
-        <p class="specification col-xs-12">
-          <!-- <span class="chart_title col-md-2 col-xs-6">total weight</span><span class="value col-md-2 col-xs-6">: {{ Math.round((total_crt/5 + (goldPricingJson && goldPricingJson[curr_size].weight || null))*1000)/1000 }} gms</span> -->
-        </p>
+        <div class="abc col-xs-12 row">
+          <div class="details_block col-xs-12 col-md-12 row">
+            <div class="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Gold Weight</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div v-if="curr_metal && (curr_metal)" class="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Gold Type</b></p>
+              <p class="details_value">{{ curr_metal && (curr_metal) }}</p>
+            </div>
+            <div class="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Clarity</b></p>
+              <p class="details_value">{{ curr_quality }}</p>
+            </div>
+            <div class="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>No of Diamonds</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div class="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Certification</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div claSS="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Gold Weight</b></p>
+              <p class="details_value">{{ (goldPricingJson && Object.keys(goldPricingJson).length && curr_size) && goldPricingJson && goldPricingJson[curr_size].weight || pricing.gold_wt }} gms</p>
+            </div>
+            <div claSS="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Gold Type</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div claSS="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Clarity</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div claSS="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>No of Diamonds</b></p>
+              <p class="details_value">ds</p>
+            </div>
+            <div claSS="details_block_single col-xs-6 col-md-2">
+              <p class="heading_details"><b>Certification</b></p>
+              <p class="details_value">ds</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <h4 class="title col-xs-12">
       Price Breakup
     </h4>
-
-    <table v-if="item && pricing" class="chart_table">
-      <tr class="table_heading row">
-        <th class="col-xs-3"><h6>Components</h6></th>
-        <th class="col-xs-3"><h6>Type</h6></th>
-        <th class="col-xs-3"><h6>Weight</h6></th>
-        <th class="col-xs-3"><h6>Price</h6></th>
-      </tr>
-      <tr class="table_data row">
-        <td class="col-xs-3"><h6>Gold Metal</h6></td>
-        <td class="col-xs-3"><h6>{{ curr_metal && (curr_metal + " (" + purity[curr_metal.toUpperCase()]*100 + "%purity )") || (purity['default'] + "%purity") }}</h6></td>
-        <td class="col-xs-3"><h6>{{ (goldPricingJson && Object.keys(goldPricingJson).length && curr_size) && goldPricingJson && goldPricingJson[curr_size].weight || pricing.gold_wt }} gms</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round(goldRate*100)/100 }}/-</h6></td>
-      </tr>
-      <tr class="table_data row">
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-      </tr>
-      <tr v-for="diamond in pricing.item_details" :key="diamond.weight" class="table_data row">
-        <td class="col-xs-3"><h6>Diamond</h6></td>
-        <td class="col-xs-3"><h6>{{ curr_quality + ' ' + curr_color }}</h6></td>
-        <td class="col-xs-3"><h6> {{ diamond.weight + ' ct (' + diamond.quantity + ') ' }}</h6></td>
-        <td class="col-xs-3"><h6> {{ Math.round(diamondCost * 100)/100 }}/- </h6></td>
-      </tr>
-      <tr class="table_data row">
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-      </tr>
-      <tr class="table_data row charges">
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3"><h6>Making Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round(making_charges * 100)/100 }}/-</h6></td>
-      </tr>
-      <tr class="table_data row">
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3"><h6>GST & Transaction Charges</h6></td>
-        <td class="col-xs-3"><h6>{{ Math.round(gst * 100)/100 }}/-</h6></td>
-      </tr>
-      <tr class="table_data row total">
-        <td class="col-xs-3" />
-        <td class="col-xs-3" />
-        <td class="col-xs-3">Total</td>
-        <td class="col-xs-3">{{ totalPrice }}/-</td>
-      </tr>
-    </table>
+    <div id="breakup" class="row col-xs-12 table-wrapper">
+      <table v-if="item && pricing" class="chart_table row col-xs-12">
+        <tr class="table_heading row">
+          <th class="col-xs-2"><h6><b>Components</b></h6></th>
+          <th class="col-xs-2"><h6><b>Shape</b></h6></th>
+          <th class="col-xs-2"><h6><b>Type</b></h6></th>
+          <th class="col-xs-2"><h6><b>Weight</b></h6></th>
+          <th class="col-xs-2"><h6><b>Price</b></h6></th>
+        </tr>
+        <tr class="table_data row">
+          <td class="col-xs-2"><h6>Gold Metal</h6></td>
+          <td class="col-xs-2"><h6>-</h6></td>
+          <td class="col-xs-2"><h6>{{ curr_metal && (curr_metal) }}</h6></td>
+          <td class="col-xs-2"><h6>{{ (goldPricingJson && Object.keys(goldPricingJson).length && curr_size) && goldPricingJson && goldPricingJson[curr_size].weight || pricing.gold_wt }} gms</h6></td>
+          <td class="col-xs-2"><h6>{{ Math.round(goldRate*100)/100 }}/-</h6></td>
+        </tr>
+        <tr class="table_data row">
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+        </tr>
+        <tr v-for="diamond in pricing.item_details" :key="diamond.weight" class="table_data row">
+          <td class="col-xs-2"><h6>Diamond</h6></td>
+          <td class="col-xs-2"><h6>Round</h6></td>
+          <td class="col-xs-2"><h6>{{ curr_quality + ' ' + curr_color }}</h6></td>
+          <td class="col-xs-2"><h6> {{ diamond.weight + ' ct (' + diamond.quantity + ') ' }}</h6></td>
+          <td class="col-xs-2"><h6> {{ Math.round(diamond.price) }}/- </h6></td>
+        </tr>
+        <tr class="table_data row">
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+          <td class="col-xs-2" />
+        </tr>
+        <tr class="table_data row charges">
+          <td class="col-xs-8" colspan="4" style="text-align: right;"><h6>Making Charges</h6></td>
+          <td class="col-xs-2"><h6>{{ Math.round(making_charges * 100)/100 }}/-</h6></td>
+        </tr>
+        <tr class="table_data row">
+          <td class="col-xs-8" colspan="4" style="text-align: right;"><h6>GST & Transaction Charges</h6></td>
+          <td class="col-xs-2"><h6>{{ Math.round(gst * 100)/100 }}/-</h6></td>
+        </tr>
+        <tr class="table_data row total">
+          <td class="col-xs-8" colspan="4" style="text-align: right;">Total</td>
+          <td class="col-xs-2">{{ totalPrice }}/-</td>
+        </tr>
+      </table>
+    </div>
   </span>
 </template>
 <script>
@@ -187,9 +236,9 @@ export default {
             totalPrice: null,
             purity: {
               "default": 0.77,
-              "ROSE GOLD": 0.76,
-              "YELLOW GOLD": 0.76,
-              "WHITE GOLD": 0.77
+              "ROSE GOLD": 0.78,
+              "YELLOW GOLD": 0.77,
+              "WHITE GOLD": 0.78
             }
         }
     },
@@ -290,12 +339,11 @@ export default {
           }
         },
         async updateRateCard(){
-          console.log(this.pricing)
           this.goldRate = (this.goldPricingJson && Object.keys(this.goldPricingJson).length && this.curr_size) && (this.goldPricingJson[this.curr_size].price/0.77 * this.purity[this.curr_metal && this.curr_metal.toUpperCase() || 'default']) || (this.pricing.gold_rate/0.77 * this.purity[this.curr_metal && this.curr_metal.toUpperCase() || 'default']);
           this.diamondCost = this.pricing && this.pricing.diamond_cost || 0;
           this.making_charges = (this.goldPricingJson && Object.keys(this.goldPricingJson).length && this.curr_size) && this.goldPricingJson[this.curr_size].mkCharges || this.pricing.making_charges;
-          this.gst = (this.goldRate + this.diamondCost + this.making_charges)*0.05;
-          console.log(this.goldRate, this.diamondCost, this.making_charges, this.gst)
+          this.gst = (this.goldRate + this.diamondCost + this.making_charges)*0.03;
+          this.certification_charges = this.total_crt >= 0.3 ? 0 : 250;
           this.totalPrice = Math.round((this.goldRate + this.diamondCost + this.making_charges + this.gst));
         }
     }
@@ -308,48 +356,104 @@ export default {
     padding: 0;
     margin: 0;
 }
+.specification-details {
+  justify-content: center;
+  font-size: 90%;
+  display: flex;
+}
+.specification-details-wrapper {
+  padding: 0;
+}
+.purchase-button {
+  margin-left: 1%;
+  margin-right: 1%;
+  display: flex;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+}
+.table-wrapper {
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+}
 .details {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.details_block {
+  display: block;
+  font-size: 70%;
+  padding: 0px;
+  text-align: center;
+}
+.details_block_single {
+  padding: 2%;
+  border: 1px solid rgb(8, 8, 8);
+}
+.abc {
+  text-align: center;
+  justify-content: center;
+  padding: 0px;
+}
 .purchase {
     margin: 0px;
-    padding: 3%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    padding: 0% 3% 1% 3%;
+}
+.table_heading {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: rgb(117, 76, 76);
+}
+.table_data :nth-child(4), .table_data :nth-child(2), .table_heading :nth-child(2), .table_heading :nth-child(4) {
+  text-align: left;
 }
 .purchase :nth-child(2){
     background-color: transparent;
     padding: 1%;
-    border: 2px solid rgb(90, 4, 4);
+    border: 3px solid rgb(117, 76, 76);
 }
 .purchase :nth-child(1){
-    background: linear-gradient(45deg,rgb(90, 4, 4), rgb(133, 36, 36), rgb(138, 54, 54), rgb(124, 34, 34), rgb(90, 4, 4));
+    background:rgb(117, 76, 76);
     background-size: cover;
     padding: 1%;
-    border: 2px solid rgb(90, 4, 4);
-}
-.red{
-    background-color: rgb(12, 12, 12) !important;
+    border: 3px solid rgb(117, 76, 76);
 }
 .order-basis {
     font-size: 150%;
 }
+.dash {
+  text-align: right;
+}
+.items_data :nth-child(2) {
+  text-align: left;
+}
 select {
-    width: 100%;
+    width: 70%;
     background-color: black;
+    text-align-last: center;
     color: white;
     margin: 0;
-    padding: 2%;;
     border: 0px;
     border-bottom: 0.5px solid white;
+    text-align: center;
+    justify-content: center;
     outline: none;
 }
-.title {
+.title, .heading_details {
   justify-content: center;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: rgb(117, 76, 76);
   text-align: center;
 }
 .main-title{
     width: 100vw;
     position: absolute;
+    color: rgb(168, 168, 168);
     bottom: 0;
     display: flex;
     justify-content: center;
@@ -362,10 +466,17 @@ select {
   justify-content: center;
   text-align: center;
   width: 100%;
-  padding: 1%;
+  padding: 1% 1% 0% 1%;
+}
+.breakup {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 80%;
+  width: 100%;
 }
 .dropper {
-    padding: 1%;
+    padding: 0%;
 }
 
 .details-wrapper {
@@ -384,12 +495,14 @@ select {
   text-justify: inter-word;
 }
 .dropdowns {
+  display: flex;
+  text-align: center !important;
+  justify-content: center !important;
     padding: 0;
     margin: 0;
 }
 .main-image {
     height: 55vh;
-    background: linear-gradient( rgb(0, 0, 0), rgb(19, 19, 19) 200%);
     display: block;
     width: 100vw;
     align-items: center;
@@ -411,96 +524,75 @@ select {
 }
 .item {
    height: 7vh;
-   min-width: 20%;
+   min-width: 16%;
    background-color: rgb(0, 0, 0);
    overflow-x:auto;
    display: flex;
    align-items: center;
    justify-content: center;
-   border-bottom: 1px solid rgb(117, 76, 76);
 }
 .item img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 60%;
     object-fit: cover;
+}
+.chart_title {
+  text-align: left;
+}
+.value {
+  text-align: right;
 }
 .sub-images {
     margin: 0px;
     width: 100%;
     margin-bottom: 1%;
-    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .charts {
-    width: 100%;
     margin-top: 4vh;
     margin-bottom: 4vh;
 }
-.divider {
-    background-color: maroon;
-    width: 100%;
+.beatable {
+  color: rgb(168, 168, 168);
 }
 .specification {
-    padding-top: 2vh;
-    font-size: 75%;
+  display: flex;
+  justify-content: center;
+  font-size: 75%;
+  padding: 0;
 }
 .specification-title {
     font-size: 130%;
 }
-.table_heading, .table_heading th, .table_data td, .table_data{
-  overflow: hidden !important;
-  text-align: left;
-  padding: 1%;
-  padding-left: 0%;
-  padding-right: 0%;
-  margin: 0;
-}
-.table_heading, .table_data, .chart_table{
-  width: 100%;
-}
-.chart_table {
-  border: 1px solid maroon;
-  background: linear-gradient(black 0%, rgb(14, 14, 14) 200%);
-  box-shadow: inset 0px 0px 5px 0px black;
-}
+
 .table_data td {
   overflow-wrap: break-word;
-}
-.table_data td {
   word-break:break-all;
-  border-right: 1px solid maroon;
-}
-.table_heading th {
-  border-bottom: 1px solid maroon;
-  border-right: 1px solid maroon;
 }
 th, td {
-  padding: 1% !important;
-  width: 25% !important;
-  max-width: 25%;
   overflow-wrap: break-word;
-}
-.total {
-  border-top: 1px solid maroon;
-}
-.charges {
-  border-top: 1px solid maroon;
+  padding: 1%;
 }
 .intro {
+  text-align: center;
   justify-content: center;
   padding: 2%;
   align-items: center;
-  /* border-top: 1px solid maroon;
-  border-bottom: 1px solid maroon; */
   background: linear-gradient(90deg, black 0% , rgb(24, 4, 4)40%, black 130%);
   margin-top: 1%;
   margin-bottom: 5%;
 }
-.intro img {
-  height: 30vh;
+.intro span img {
+  height: 20vh;
+  max-width: 60vw;
   object-fit: contain;
+}
+.intro span {
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 .intro-text {
   display: flex;
@@ -509,7 +601,17 @@ th, td {
   flex-direction: column;
   text-align: justify;
 }
-.intro-text h5 {
+.intro-text h6 {
   font-size: 120%;
+}
+.spacing {
+  background-color: black !important;
+  color: transparent !important;
+  border: 1px solid black !important;
+}
+@media screen and (orientation: portrait) {
+  select {
+    width: 100%;
+  }
 }
 </style>  

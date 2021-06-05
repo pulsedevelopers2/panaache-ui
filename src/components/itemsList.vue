@@ -1,7 +1,6 @@
 <template>
   <div class="items row">
-    <side-nav />
-    <div v-for="(item) in items" :key="item.id" class="itemblock col-xs-6 col-md-3">
+    <div v-for="(item) in items" :key="item.id" class="itemblock col-xs-6 col-md-4">
       <span class="hyperlink">
         <div class="image">
           <img :src="item.image_link[0]">
@@ -17,38 +16,43 @@
             <button class="hover-button"><a class="hover-link" :href="'/item?&item=' + item.id">View</a></button>
           </span>
         </span>
-        <br>
       </span>
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex';
-import SideNav from '../components/SideNav'
+import { mapState } from 'vuex';
 export default {
-    components: {
-        SideNav
-    },
     computed: {
         ...mapState({
             items: state => state.items.items,
             loaded: state => state.items.loaded
         })
-    },
-    methods: {
-        ...mapActions({
-
-        })
     }
 }
 </script>
 <style scoped>
+.items {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+  min-height: 25vmax;
+}
 .itemblock {
-    min-height: 30vh;
+    min-height: calc(30vmax + 20vmin);
     display: inline-block;
-    border: 5px solid rgb(0, 0, 0);
+    border: 20px solid rgb(0, 0, 0);
     text-align: center;
-    background: linear-gradient(40deg, black, rgb(34, 34, 34))
+    background-color: rgba(77, 55, 52, 0.1);
+    /* background: linear-gradient(40deg, black, rgb(34, 34, 34)) */
+}
+@media screen and (orientation: portrait) {
+  .items {
+    padding: none;
+    min-height: 60vmax;
+  }
+  .itemblock { 
+    border: 2px solid rgb(0, 0, 0);
+  }
 }
 .item_details {
     width: 100%;
@@ -88,7 +92,7 @@ export default {
     min-width: 50%;
     margin: 1%;
     padding: 1%;
-    background: transparent;
+    background: rgb(117, 76, 76);
 }
 .hover-link {
     display: block;
@@ -111,8 +115,7 @@ a {
     z-index: 0;
 }
 .image img {
-    max-width: 50%;
-    max-height: 15vh;
+    max-width: 53%;
     object-fit: contain;
 }
 </style>

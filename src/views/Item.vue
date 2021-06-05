@@ -3,7 +3,7 @@
     <nav-bar />
     <SideNav />
     <item v-if="item_loaded == 'true' && loggedIn == 'true'" />
-    <img v-if="item_loaded == 'loading' && loggedIn == 'true'" src="../assets/loader.gif" class="loading-block">
+    <Loader v-if="item_loaded == 'loading' && loggedIn == 'true'" class="loader" />
     <Footer v-if="item_loaded == 'true' && loggedIn == 'true'" />
   </div>
 </template>
@@ -14,12 +14,14 @@ import Item from '../components/item.vue';
 import NavBar from '../NavBar';
 import SideNav from '../components/SideNav'
 import Footer from '../footer'
+import Loader from '../components/loader'
 export default {
     components: {
         Item,
         NavBar,
         Footer,
-        SideNav
+        SideNav,
+        Loader
     },
     data(){
         return {
@@ -69,18 +71,8 @@ export default {
 }
 </script>
 <style scoped>
-.loading-block{
-  margin: 0;
-  position: absolute;
-  justify-content: center;
-  top: 20%;
-  left: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
 .main_item {
   min-height: 100vh;
 }
+
 </style>

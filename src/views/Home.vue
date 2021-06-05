@@ -1,9 +1,5 @@
 <template>
   <div class="homeBody" @contextmenu="preventDefault($event)">
-    <div class="logo-nav">
-      <img src="../assets/logo.png"><br>
-      <img src="../assets/fullLogo.png">
-    </div>
     <side-nav />
     <hello-world />
     <Footer class="footer" />

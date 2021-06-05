@@ -1,111 +1,210 @@
 <template>
-  <div class="solitaire-wrapper row" @contextmenu="preventDefault($event)">
+  <span>
     <nav-bar />
     <SideNav />
-    <span v-if="loggedIn == 'true'">
-      <div class="solitaire-intro col-xs-12">
-        <div class="intro-box">
-          <h3> Introducing buy on Chat feature. Because we know buying Jewelz is not so easy </h3>
-          <h5> You can now buy solitaire diamonds by talking to Diamond Experts from your favourite platforms </h5>
-        </div>
-      </div>
-      <div class="features-wrapper col-xs-12">
-        <div class="size-wrapper col-xs-12 col-md-4">
-          <h4 class="col-xs-12 header">
-            Diamond Shapes
-          </h4>
-          <div class="size-text row col-xs-12">
-            <span class="centered">
-              <h3 class="col-xs-12">
-                0.01CT - 1.5CT
-              </h3>
-              <span class="centered" /></span>
+    <div class="solitaire-wrapper row" @contextmenu="preventDefault($event)">
+      <span v-if="loggedIn == 'true'">
+        <div class="solitaire-intro col-xs-12">
+          <div class="intro-box">
+            <h3> Introducing buy on Chat feature. Because we know buying Jewelz is not so easy </h3>
+            <h5> You can now buy solitaire diamonds by talking to Diamond Experts from your favourite platforms </h5>
           </div>
         </div>
-        <div class="size-wrapper col-xs-12 col-md-4">
-          <h4 class="col-xs-12 header">
-            Diamond Sizes
-          </h4>
-          <div class="size-text row col-xs-12">
-            <span class="centered">
-              <h3 class="col-xs-12">
-                0.01CT - 1.5CT
-              </h3>
-              <span class="centered" /></span>
+        <div class="features-wrapper col-xs-12">
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Diamond Shapes
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered shapes-wrap">
+                <h3 class="col-xs-3">
+                  <img src="../assets/square.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/square-fat.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/heart.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/round.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/polygon.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/oval.png" class="shapes">
+                </h3>
+                <h3 class="col-xs-3">
+                  <img src="../assets/drop.png" class="shapes">
+                </h3>
+                <span class="centered" /></span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Diamond Sizes
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-12">
+                  0.01CT - 1.5CT
+                </h3>
+                <span class="centered" /></span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Diamond Quality
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-6">
+                  VVS
+                </h3>
+                <h3 class="col-xs-6">
+                  VVS-VS
+                </h3>
+                <h3 class="col-xs-6">
+                  VS
+                </h3>
+                <h3 class="col-xs-6">
+                  SI
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Diamond color   
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-6">
+                  E-F
+                </h3>
+                <h3 class="col-xs-6">
+                  F-G
+                </h3>
+                <h3 class="col-xs-6">
+                  G-H
+                </h3>
+                <h3 class="col-xs-6">
+                  H-I
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Diamond cut   
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-4">
+                  H&A
+                </h3>
+                <h3 class="col-xs-4">
+                  Excellent
+                </h3>
+                <h3 class="col-xs-4">
+                  V.Good
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Certification 
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-4">
+                  GIA
+                </h3>
+                <h3 class="col-xs-4">
+                  IGI
+                </h3>
+                <h3 class="col-xs-4">
+                  HRD
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Polish 
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-4">
+                  Excellent
+                </h3>
+                <h3 class="col-xs-4">
+                  V.Good
+                </h3>
+                <h3 class="col-xs-4">
+                  Good
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Fluorescence 
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-4">
+                  None
+                </h3>
+                <h3 class="col-xs-4">
+                  Faint
+                </h3>
+                <h3 class="col-xs-4">
+                  Medium
+                </h3>
+              </span>
+            </div>
+          </div>
+          <div class="size-wrapper col-xs-12 col-md-4">
+            <h4 class="col-xs-12 header">
+              Symmetry 
+            </h4>
+            <div class="size-text row col-xs-12">
+              <span class="centered">
+                <h3 class="col-xs-4">
+                  Excellent
+                </h3>
+                <h3 class="col-xs-4">
+                  V.Good
+                </h3>
+                <h3 class="col-xs-4">
+                  Good
+                </h3>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="size-wrapper col-xs-12 col-md-4">
-          <h4 class="col-xs-12 header">
-            Diamond Quality
-          </h4>
-          <div class="size-text row col-xs-12">
-            <span class="centered">
-              <h3 class="col-xs-6">
-                VVS
-              </h3>
-              <h3 class="col-xs-6">
-                VVS-VS
-              </h3>
-              <h3 class="col-xs-6">
-                VS
-              </h3>
-              <h3 class="col-xs-6">
-                SI
-              </h3>
-            </span>
-          </div>
-        </div>
-        <div class="size-wrapper col-xs-12 col-md-4">
-          <h4 class="col-xs-12 header">
-            Diamond color   
-          </h4>
-          <div class="size-text row col-xs-12">
-            <span class="centered">
-              <h3 class="col-xs-6">
-                E-F
-              </h3>
-              <h3 class="col-xs-6">
-                F-G
-              </h3>
-              <h3 class="col-xs-6">
-                G-H
-              </h3>
-              <h3 class="col-xs-6">
-                H-I
-              </h3>
-            </span>
-          </div>
-        </div>
-      </div>
-      <span class="col-xs-12 col-md-4">
-        <button class="contact">
-          Whatsapp
-        </button>
-      </span>
-      <span class="col-xs-12 col-md-4">
-        <button class="contact">
-          Instagram
-        </button>
-      </span>
-      <span class="col-xs-12 col-md-4">
-        <button class="contact">
-          Call US
-        </button>
-      </span>
-    </span>
-    <Footer v-if="loggedIn == 'true'" />
-  </div>
+        <h2>Contact Us</h2>
+        <br>
+        <contact-us class="col-xs-12" />
+        <Footer v-if="loggedIn == 'true'" />
+      </span></div>
+  </span>
 </template>
 <script>
 import NavBar from '../NavBar.vue'
 import SideNav from '../components/SideNav.vue'
+import ContactUs from '../components/contactus.vue'
 import Footer from '../footer.vue'
 import { mapState } from 'vuex'
 export default {
     components: {
         NavBar,
         SideNav,
-        Footer
+        Footer,
+        ContactUs
     },
     computed: {
         ...mapState({
@@ -127,6 +226,14 @@ export default {
 }
 .solitaire-intro {
     padding: 4%;
+}
+.shapes-wrap h3{
+  max-height: 7vh;
+}
+.shapes {
+  max-height: inherit;
+  object-fit: contain;
+  opacity: 0.6;
 }
 .features-wrapper {
     padding: 5%;
@@ -170,7 +277,9 @@ export default {
 .solitaire-intro .intro-box h5 {
     display: none;
 }
-
+.size-text span h3 {
+  font-size: 4vw;
+}
 }
 .size-text .centered {
     display: inline-block;
@@ -181,13 +290,5 @@ export default {
   right: 0;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-.contact {
-    background: transparent;
-    border: 1px solid rgb(145, 96, 96);
-    padding: 4%;
-    margin-top: 2%;
-    width: 50%;
-    margin-bottom: 5%;
 }
 </style>

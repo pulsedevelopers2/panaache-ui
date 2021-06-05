@@ -1,18 +1,24 @@
 <template>
   <span class="">
     <div class="nav-bar row">
-      <a href="/" class="image-wrapper"><img class="nav-logo col-xs-12" src="./assets/fullLogo.png"></a>
+      <span class="image-wrapper">
+        <img class="nav-logo" src="./assets/logo.png" @click="redirect">
+        <br>
+        <img class="nav-logo" src="./assets/fullLogo.png" @click="redirect">
+      </span>
     </div>
     <login v-if="loggedIn != 'true' && loggedIn!='loading'" class="login-block" />
-    <img v-if="loggedIn == 'loading'" src="./assets/loader.gif" class="loading-block">
+    <Loader v-if="loggedIn == 'loading'" class="loader" />
   </span>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
 import Login from './components/login'
+import Loader from './components/loader'
 export default {
   components: {
-    Login
+    Login,
+    Loader
   },
   computed: {
     ...mapState({
@@ -28,6 +34,9 @@ export default {
       reset: 'login/reset',
       cachedVerify: 'login/cachedVerify'
     }),
+    redirect(){
+      window.location.href = '/'
+    },
     async logout() {
       if (this.loggedIn == 'true') {
         await this.reset();
@@ -38,14 +47,15 @@ export default {
 </script>
 <style scoped>
 .nav-bar {
-    height: 15vh;
-    width: 100%;
+    height: 30vh;
+    width: 100vw;
     padding: 0;
-    max-height: 60px;
+    max-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    text-align: center;
+    background-color: black;
     z-index: 1;
 }
 .email {
@@ -63,15 +73,9 @@ export default {
   margin: auto;
 }
 .loading-block {
-   margin: 0;
   position: absolute;
-  justify-content: center;
-  top: 20%;
-  left: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  margin-top: calc(45vh - 30px);
+  margin-left: calc(50vw - 30px);
 }
 
 .nav-options{
@@ -153,12 +157,23 @@ export default {
 .image-wrapper {
   width: 100%;
   max-height: 60px;
-  height: 15vh;
+  height: 30vh;
   display: block;
   padding: 0;
 }
 .nav-logo {
-  max-height: 100%;
+  max-height: 70%;
+  cursor: pointer;
+  object-fit: contain;
+}
+@media screen and (orientation: portrait) {
+  .nav-logo {
+  max-height: 45%;
   object-fit: contain;;
+}
+.nav-bar {
+  max-height: 80px;
+  height: 20vh;
+}
 }
 </style>
